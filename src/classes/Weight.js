@@ -15,6 +15,8 @@ export default class Weight extends PIXI.Graphics {
 	}
 
 	renderComponent(opacity = 1) {
+		this.clear();
+
 		this.lineStyle(this.lineWidth, this.lineColor, opacity)
 			.moveTo(this.from.x, this.from.y)
 			.lineTo(this.to.x, this.to.y);
