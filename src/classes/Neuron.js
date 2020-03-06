@@ -1,14 +1,17 @@
 import * as PIXI from 'pixi.js';
+import gsap from 'gsap';
 
 export default class Neuron extends PIXI.Graphics {
-	constructor(pos, value, radius = 15, color = 0xffffff) {
+	constructor(stage, pos, value, radius = 15, color = 0xffffff) {
 		super();
 
+		this.stage = stage;
 		this.value = value;
 		this.pos = pos;
 		this.color = color;
 		this.radius = radius;
 
+		// this.animate();
 		this.renderComponent();
 	}
 
@@ -26,8 +29,10 @@ export default class Neuron extends PIXI.Graphics {
 		const { x, y } = this.pos;
 		this.clear();
 
-		this.beginFill(this.color, 0.3);
+		this.beginFill(this.color);
 		this.drawCircle(x, y, this.radius);
 		this.endFill();
+
+		this.stage.addChild(this);
 	}
 }
