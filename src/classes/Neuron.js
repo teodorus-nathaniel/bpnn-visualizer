@@ -1,38 +1,69 @@
 import * as PIXI from 'pixi.js';
-import gsap from 'gsap';
+import { DropShadowFilter } from '@pixi/filter-drop-shadow';
 
 export default class Neuron extends PIXI.Graphics {
-	constructor(stage, pos, value, radius = 15, color = 0xffffff) {
-		super();
+  constructor (stage, pos, value, radius = 15, color = 0xffffff) {
+    super();
 
-		this.stage = stage;
-		this.value = value;
-		this.pos = pos;
-		this.color = color;
-		this.radius = radius;
+    this.stage = stage;
+    this.value = value;
+    this.pos = pos;
+    this.color = color;
+    this.radius = radius;
 
-		// this.animate();
-		this.renderComponent();
-	}
+    this.initializeContainer();
+    this.renderComponent();
+  }
 
-	getNeuronRightBounds() {
-		const { x, y } = this.pos;
-		return { x: x + this.radius, y };
-	}
+  initializeContainer () {
+    const container = new PIXI.Container();
+    container.addChild(this);
+    container.zIndex = 9;
+    container.filters = [
+      new DropShadowFilter({
+        alpha: this.value,
+        color: 0xffffff,
+        blur: 0.2,
+        distance: 0,
+        quality: 10
+      }),
+      new DropShadowFilter({
+        alpha: this.value,
+        color: 0xffffff,
+        blur: 0.5,
+        distance: 0,
+        quality: 10
+      })
+    ];
 
-	getNeuronLeftBounds() {
-		const { x, y } = this.pos;
-		return { x: x - this.radius, y };
-	}
+    this.container = container;
+    this.stage.addChild(container);
+  }
 
-	renderComponent(opacity = 1) {
-		const { x, y } = this.pos;
-		this.clear();
+  /**
+   * TODO: now not used
+   */
+  getNeuronRightBounds () {
+    const { x, y } = this.pos;
+    return { x: x + this.radius, y };
+  }
 
-		this.beginFill(this.color);
-		this.drawCircle(x, y, this.radius);
-		this.endFill();
+  /**
+   * TODO: now not used
+   */
+  getNeuronLeftBounds () {
+    const { x, y } = this.pos;
+    return { x: x - this.radius, y };
+  }
 
-		this.stage.addChild(this);
-	}
+  renderComponent () {
+    const { x, y } = this.pos;
+    this.clear();
+
+    this.beginFill(0x0f0f0f, 0).drawRect(x - 50, y - 50, 100, 100).endFill();
+    this.beginFill(0x0f0f0f).drawCircle(x, y, this.radius).endFill();
+    this.beginFill(this.color, this.value)
+      .drawCircle(x, y, this.radius)
+      .endFill();
+  }
 }

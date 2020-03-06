@@ -10,14 +10,16 @@ PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);
 
 const app = new PIXI.Application({
-	view: document.getElementById('pixi-canvas'),
-	backgroundColor: '#303030',
-	height: window.innerHeight,
-	width: window.innerWidth,
-	antialias: true
+  view: document.getElementById('pixi-canvas'),
+  backgroundColor: 0x0f0f0f,
+  height: window.innerHeight,
+  width: window.innerWidth,
+  antialias: true
 });
 
-const layers = [ 2, 4, 2, 2 ];
+app.stage.sortableChildren = true;
+
+const layers = [ 2, 4, 2, 10, 2 ];
 const { neurons, weights } = generateModel(app.stage, layers);
 
 initForm('csv-form', 'file-input');
