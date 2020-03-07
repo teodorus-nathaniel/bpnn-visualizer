@@ -1,21 +1,21 @@
-import * as PIXI from 'pixi.js';
-import generateModel from './utilities/generate-model';
-import { forEachElement } from './utilities/array-utilities';
-import initForm from './utilities/form-control';
-import PixiPlugin from 'gsap/PixiPlugin';
-import gsap from 'gsap';
-import startBPNN from './core/bpnn-animation';
-import initModelController from './core/network-model-controller';
+import * as PIXI from "pixi.js";
+import generateModel from "./utilities/generate-model";
+import { forEachElement } from "./utilities/array-utilities";
+import initForm from "./utilities/form-control";
+import PixiPlugin from "gsap/PixiPlugin";
+import gsap from "gsap";
+import startBPNN from "./core/bpnn-animation";
+import initModelController from "./core/network-model-controller";
 
 PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);
 
 const app = new PIXI.Application({
-  view: document.getElementById('pixi-canvas'),
-  backgroundColor: 0x0f0f0f,
-  height: window.innerHeight,
-  width: window.innerWidth,
-  antialias: true
+    view: document.getElementById("pixi-canvas"),
+    backgroundColor: 0x000000,
+    height: window.innerHeight,
+    width: window.innerWidth,
+    antialias: true
 });
 
 app.stage.sortableChildren = true;
@@ -27,7 +27,7 @@ initModelController(app.stage);
 // const { neurons, weights } = generateModel(app.stage, layers);
 // startBPNN(neurons, weights, 1);
 
-initForm('csv-form', 'file-input');
+initForm("csv-form", "file-input");
 
 // forEachElement(neurons, (element) => app.stage.addChild(element));
 // forEachElement(weights, (element) => app.stage.addChild(element));

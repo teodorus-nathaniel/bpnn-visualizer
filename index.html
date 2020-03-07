@@ -1,54 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>BPNN Visualizer</title>
+        <link rel="stylesheet" href="./src/css/index.css" />
+        <script src="./dist/main.js" defer></script>
+    </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
-  <title>BPNN Visualizer</title>
+    <body>
+        <header>
+            <form action="#" method="get" id="csv-form">
+                <label for="file-input">Input File CSV : </label>
+                <input type="file" name="file" id="file-input" />
+                <button type="submit">Upload</button>
+                <span class="error-message"></span>
+            </form>
+            <div class="input-container">
+                <label for="layer-count-input">
+                    How Many Layers :
+                </label>
+                <input
+                    id="layer-count-input"
+                    type="text"
+                    placeholder="How Many layers..."
+                    value="4"
+                />
+            </div>
 
-  <style>
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
+            <div class="input-container">
+                <label for="text">
+                    Neurons :
+                </label>
+                <input
+                    class="input-neuron-count"
+                    type="text"
+                    placeholder="neuron for layer 1..."
+                />
+                <input
+                    class="input-neuron-count"
+                    type="text"
+                    placeholder="neuron for layer 2..."
+                />
+                <input
+                    class="input-neuron-count"
+                    type="text"
+                    placeholder="neuron for layer 3..."
+                />
+                <input
+                    class="input-neuron-count"
+                    type="text"
+                    placeholder="neuron for layer 4..."
+                />
+            </div>
 
-  <script
-    src="./dist/main.js"
-    defer></script>
-</head>
+            <div class="input-container">
+                <button id="start-btn">Start!</button>
+            </div>
+        </header>
 
-<body>
-  <form
-    action="#"
-    method="get"
-    id="csv-form">
-    <input
-      type="file"
-      name="file"
-      id="file-input">
-    <button type="submit">Submit</button>
-  </form>
-
-  <div>
-    <input id="layer-count-input" type="text" placeholder="how many layers...">
-  </div>
-
-  <div id="layer-input-container">
-    <input type="text" placeholder="neuron for layer 1...">
-    <input type="text" placeholder="neuron for layer 2...">
-    <input type="text" placeholder="neuron for layer 3...">
-    <input type="text" placeholder="neuron for layer 4...">
-  </div>
-
-  <button id="start-btn">Start!</button>
-
-  <canvas id="pixi-canvas"></canvas>
-</body>
-
+        <canvas id="pixi-canvas"></canvas>
+    </body>
 </html>
