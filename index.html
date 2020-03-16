@@ -1,64 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>BPNN Visualizer</title>
-        <link rel="stylesheet" href="./src/css/index.css" />
-        <script src="./dist/main.js" defer></script>
-    </head>
 
-    <body>
-        <header>
-            <form action="#" method="get" id="csv-form">
-                <label for="file-input">Input File CSV : </label>
-                <input type="file" name="file" id="file-input" />
-                <button type="submit">Upload</button>
-                <span class="error-message"></span>
-            </form>
-            <div class="input-container">
-                <label for="layer-count-input">
-                    How Many Layers :
-                </label>
-                <input
-                    id="layer-count-input"
-                    type="text"
-                    placeholder="How Many layers..."
-                    value="4"
-                />
-            </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+    <title>BPNN Visualizer</title>
+    <link
+        rel="stylesheet"
+        href="./src/css/index.css"
+    />
+    <script
+        src="./dist/main.js"
+        defer
+    ></script>
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+        rel="stylesheet"
+    >
+</head>
 
-            <div class="input-container">
-                <label for="text">
-                    Neurons :
-                </label>
-                <input
-                    class="input-neuron-count"
-                    type="text"
-                    placeholder="neuron for layer 1..."
-                />
-                <input
-                    class="input-neuron-count"
-                    type="text"
-                    placeholder="neuron for layer 2..."
-                />
-                <input
-                    class="input-neuron-count"
-                    type="text"
-                    placeholder="neuron for layer 3..."
-                />
-                <input
-                    class="input-neuron-count"
-                    type="text"
-                    placeholder="neuron for layer 4..."
-                />
-            </div>
+<body>
+    <header>
+        <form
+            action="#"
+            method="get"
+            id="csv-form"
+        >
+            <label for="file-input">Input File CSV : </label>
+            <input
+                type="file"
+                name="file"
+                id="file-input"
+            />
+            <button type="submit">Upload</button>
+            <span class="error-message"></span>
+        </form>
+        <div class="input-container">
+            <label for="layer-count-input">
+                How Many Layers :
+            </label>
+            <input
+                id="layer-count-input"
+                type="text"
+                placeholder="How Many layers..."
+                value="4"
+            />
+        </div>
 
-            <div class="input-container">
-                <button id="start-btn">Start!</button>
-            </div>
-        </header>
+        <div class="input-container">
+            <label for="text">
+                Neurons :
+            </label>
+            <input
+                class="input-neuron-count"
+                type="text"
+                placeholder="neuron for layer 1..."
+            />
+            <input
+                class="input-neuron-count"
+                type="text"
+                placeholder="neuron for layer 2..."
+            />
+            <input
+                class="input-neuron-count"
+                type="text"
+                placeholder="neuron for layer 3..."
+            />
+            <input
+                class="input-neuron-count"
+                type="text"
+                placeholder="neuron for layer 4..."
+            />
+        </div>
 
-        <canvas id="pixi-canvas"></canvas>
-    </body>
+        <div class="input-container">
+            <button id="start-btn">Start!</button>
+        </div>
+    </header>
+
+    <canvas id="pixi-canvas"></canvas>
+</body>
+
 </html>
