@@ -19,6 +19,10 @@ body {
 	background-color: #808080;
 }
 
+.pointer {
+	cursor: pointer;
+}
+
 #csv-form,
 .input-container {
 	width: 100%;
@@ -103,11 +107,15 @@ header {
 }
 .features-titles span:last-child {
 	margin-left: auto;
+	margin-right: 34px;
 }
 .features-titles #add-new-feature {
 	margin-left: 50px;
 }
 
+#add-new-feature.hide {
+	display: none;
+}
 .add-new-option {
 	color: blue;
 	font-size: .8em;
@@ -138,6 +146,9 @@ header {
 .data div input::placeholder {
 	color: rgba(0, 0, 0, .3);
 }
-.data div input:last-child {
+.data div input:nth-last-child(2) {
 	margin-left: auto;
+}
+.data .delete-row-btn {
+	color: red;
 }

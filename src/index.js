@@ -1,10 +1,10 @@
 import * as PIXI from 'pixi.js';
-import initForm from './utilities/form-control';
+import initForm from './controllers/form-control';
 import PixiPlugin from 'gsap/PixiPlugin';
 import gsap from 'gsap';
 import initModelController from './core/network-model-controller';
-import initInputDataListeners from './utilities/input-data-control';
-import initModalControl from './utilities/input-modal-control';
+import initInputDataListeners from './controllers/input-data-control';
+import initModalControl from './controllers/input-modal-control';
 
 document.addEventListener('DOMContentLoaded', () => {
 	PixiPlugin.registerPIXI(PIXI);
