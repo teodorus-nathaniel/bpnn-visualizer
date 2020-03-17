@@ -185,5 +185,5 @@ const target = [ [ 0 ] ];
 const w = [ [ [ 5, 4 ], [ 6, 3 ] ], [ [ 4 ], [ 2 ] ] ];
 const b = [ [ -6, 1 ], [ -3.93 ] ];
 
-const model = new BPNN(layers, inp, target, w, b);
-model.train(2);
+// const model = new BPNN(layers, inp, target, w, b);
+// model.train(2);
