@@ -23,8 +23,14 @@
 </head>
 
 <body>
-    <div class="input-form-modal">
-        <span class="close-btn">&#9932;</span>
+    <div
+        class="input-form-modal hide"
+        id="custom-input-modal"
+    >
+        <span
+            class="close-btn"
+            id="close-modal-btn"
+        >&#9932;</span>
         <h1>Your input dataset</h1>
         <div
             class="features-titles"
@@ -112,6 +118,7 @@
                 id="file-input"
             />
             <button type="submit">Upload</button>
+            <span id="open-modal-btn">use custom input</span>
             <span class="error-message"></span>
         </form>
         <div class="input-container">
