@@ -5,121 +5,93 @@
     <meta charset="UTF-8" />
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    />
+        content="width=device-width, initial-scale=1.0" />
     <title>BPNN Visualizer</title>
     <link
         rel="stylesheet"
-        href="./src/css/index.css"
-    />
+        href="./src/css/index.css" />
     <script
         src="./dist/main.js"
-        defer
-    ></script>
+        defer></script>
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-        rel="stylesheet"
-    >
+        rel="stylesheet">
 </head>
 
 <body>
     <div
         class="input-form-modal hide"
-        id="custom-input-modal"
-    >
+        id="custom-input-modal">
         <span
             class="close-btn"
-            id="close-modal-btn"
-        >&#9932;</span>
+            id="close-modal-btn">&#9932;</span>
         <h1>Your input dataset</h1>
         <div
             class="features-titles"
-            id="features-titles"
-        >
-            <span>
+            id="features-titles">
+            <span class="title">
                 Feature 1
-                <span
-                    class="delete-icon pointer"
-                    data-index="1"
-                >&#9932;</span>
+                <span class="delete-icon pointer">&#9932;</span>
             </span>
-            <span>
+            <span class="title">
                 Feature 2
-                <span
-                    class="delete-icon pointer"
-                    data-index="2"
-                >&#9932;</span>
+                <span class="delete-icon pointer">&#9932;</span>
             </span>
             <span
                 class="add-new-option"
-                id="add-new-feature"
-            >+ add new feature</span>
+                id="add-new-feature">+ add new feature</span>
             <span>Target</span>
         </div>
 
         <div
             class="data"
-            id="data"
-        >
+            id="data">
             <div>
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <span
                     class="delete-row-btn"
-                    data-index="1"
-                >&#9932;</span>
+                    data-index="1">&#9932;</span>
             </div>
             <div>
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <span
                     class="delete-row-btn"
-                    data-index="2"
-                >&#9932;</span>
+                    data-index="2">&#9932;</span>
             </div>
             <div>
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <span
                     class="delete-row-btn"
-                    data-index="3"
-                >&#9932;</span>
+                    data-index="3">&#9932;</span>
             </div>
         </div>
         <span
             class="add-new-option"
-            id="add-new-data"
-        >+ add new data</span>
+            id="add-new-data">+ add new data</span>
 
     </div>
 
@@ -127,14 +99,12 @@
         <form
             action="#"
             method="get"
-            id="csv-form"
-        >
+            id="csv-form">
             <label for="file-input">Input File CSV : </label>
             <input
                 type="file"
                 name="file"
-                id="file-input"
-            />
+                id="file-input" />
             <button type="submit">Upload</button>
             <span id="open-modal-btn">use custom input</span>
             <span class="error-message"></span>
@@ -147,8 +117,7 @@
                 id="layer-count-input"
                 type="text"
                 placeholder="How Many layers..."
-                value="4"
-            />
+                value="4" />
         </div>
 
         <div class="input-container">
@@ -158,23 +127,19 @@
             <input
                 class="input-neuron-count"
                 type="text"
-                placeholder="neuron for layer 1..."
-            />
+                placeholder="neuron for layer 1..." />
             <input
                 class="input-neuron-count"
                 type="text"
-                placeholder="neuron for layer 2..."
-            />
+                placeholder="neuron for layer 2..." />
             <input
                 class="input-neuron-count"
                 type="text"
-                placeholder="neuron for layer 3..."
-            />
+                placeholder="neuron for layer 3..." />
             <input
                 class="input-neuron-count"
                 type="text"
-                placeholder="neuron for layer 4..."
-            />
+                placeholder="neuron for layer 4..." />
         </div>
 
         <div class="input-container">
