@@ -19,28 +19,22 @@
 </head>
 
 <body>
-    <div
-        class="input-form-modal hide"
-        id="custom-input-modal">
+    <div class="custom-input-modal hide" id="custom-input-modal">
         <span
             class="close-btn"
             id="close-modal-btn">&#9932;</span>
         <h1>Your input dataset</h1>
-        <div
-            class="features-titles"
-            id="features-titles">
+        <div class="features-titles" id="features-titles">
             <span class="title">
-                Feature 1
+                <span contenteditable="true">Feature 1</span>
                 <span class="delete-icon pointer">&#9932;</span>
             </span>
             <span class="title">
-                Feature 2
+                <span contenteditable="true">Feature 2</span>
                 <span class="delete-icon pointer">&#9932;</span>
             </span>
-            <span
-                class="add-new-option"
-                id="add-new-feature">+ add new feature</span>
-            <span>Target</span>
+            <span class="add-new-option" id="add-new-feature">+ add new feature</span>
+            <span contenteditable="true">Target</span>
         </div>
 
         <div
@@ -148,6 +142,11 @@
     </header>
 
     <canvas id="pixi-canvas"></canvas>
+
+    <h2>Animation Speed</h2>
+    <div class="slide-container">
+        <input type="range" min="1" max="17" value="9" step="0.1" class="slider" id="animation-slider">
+    </div>
 </body>
 
 </html>

@@ -24,7 +24,6 @@ export default function initInputDataListeners (){
     const index = Array.from(titleContainer.children).findIndex(
       (el) => el === parent
     );
-    console.log(index);
 
     titleContainer.removeChild(parent);
     Array.from(dataContainer.children).forEach((row) => {
