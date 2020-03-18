@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const app = new PIXI.Application({
     view: document.getElementById('pixi-canvas'),
-    backgroundColor: 0x000000,
+    backgroundColor: 0x191c26,
     height: window.innerHeight,
     width: window.innerWidth,
     antialias: true
@@ -22,14 +22,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initModelController(app.stage);
   initInputDataListeners();
   initInputTypeChangeListener();
-
-  // const layers = [ 2, 4, 2, 10, 2 ];
-
-  // const { neurons, weights } = generateModel(app.stage, layers);
-  // startBPNN(neurons, weights, 1);
-
-  // initForm('csv-form', 'file-input');
-
-  // forEachElement(neurons, (element) => app.stage.addChild(element));
-  // forEachElement(weights, (element) => app.stage.addChild(element));
 });

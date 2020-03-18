@@ -19,81 +19,9 @@
 </head>
 
 <body>
-    <div
-        class="custom-input-modal hide"
-        id="custom-input-modal">
-        <span
-            class="close-btn"
-            id="close-modal-btn">&#9932;</span>
-        <h1>Your input dataset</h1>
-        <div
-            class="features-titles"
-            id="features-titles">
-            <span class="title">
-                <span contenteditable="true">Feature 1</span>
-                <span class="delete-icon pointer">&#9932;</span>
-            </span>
-            <span class="title">
-                <span contenteditable="true">Feature 2</span>
-                <span class="delete-icon pointer">&#9932;</span>
-            </span>
-            <span
-                class="link"
-                id="add-new-feature">+ add new feature</span>
-            <span contenteditable="true">Target</span>
-        </div>
 
-        <div
-            class="data"
-            id="data">
-            <div>
-                <input
-                    type="text"
-                    placeholder="input data...">
-                <input
-                    type="text"
-                    placeholder="input data...">
-                <input
-                    type="text"
-                    placeholder="input data...">
-                <span
-                    class="delete-row-btn"
-                    data-index="1">&#9932;</span>
-            </div>
-            <div>
-                <input
-                    type="text"
-                    placeholder="input data...">
-                <input
-                    type="text"
-                    placeholder="input data...">
-                <input
-                    type="text"
-                    placeholder="input data...">
-                <span
-                    class="delete-row-btn"
-                    data-index="2">&#9932;</span>
-            </div>
-            <div>
-                <input
-                    type="text"
-                    placeholder="input data...">
-                <input
-                    type="text"
-                    placeholder="input data...">
-                <input
-                    type="text"
-                    placeholder="input data...">
-                <span
-                    class="delete-row-btn"
-                    data-index="3">&#9932;</span>
-            </div>
-        </div>
-        <span
-            class="link"
-            id="add-new-data">+ add new data</span>
-
-    </div>
+    <span class="overlay-icons" id="back-btn">&#8592;</span>
+    <span class="overlay-icons" id="reset-btn">&#8634;</span>
 
     <div class="container">
         <h1>Back Propagation Neural Network Visualization</h1>
@@ -143,7 +71,7 @@
                 <div class="flex-row-space-between">
                     <span class="title">Use CSV file</span>
                     <span
-                        class="link change-input-type-btn open-modal-btn">use custom input</span>
+                        class="link change-input-type-btn open-modal-btn" tabindex="0">use custom input</span>
                 </div>
                 <input
                     type="file"
@@ -152,19 +80,103 @@
             <div class="input-form custom-input-form">
                 <div class="flex-row-space-between">
                     <span class="title">Use custom input</span>
-                    <span class="link change-input-type-btn">use csv file</span>
+                    <span class="link change-input-type-btn" tabindex="0">use csv file</span>
                 </div>
-                <span>
-                    Your input dimension:
-                    <span id="input-dimension--row">_</span> x <span id="input-dimension--column">_</span>
-                </span>
+                <div>
+                    <span>
+                        Your input dimension:
+                        <span id="input-dimension--row">_</span> x <span id="input-dimension--column">_</span>
+                    </span>
+                </div>
+                <span class="link open-modal-btn" tabindex="0">Edit data</span>
             </div>
-            <span class="link open-modal-btn">Edit data</span>
         </section>
         <button id="start-btn">Start training the model!</button>
     </div>
 
-    <!-- <header>
+    <div
+        class="custom-input-modal hide"
+        id="custom-input-modal">
+        <div class="modal-container">
+            <span
+                class="close-btn"
+                id="close-modal-btn">&#9932;</span>
+            <h1>Your input dataset</h1>
+            <div
+                class="features-titles"
+                id="features-titles">
+                <span class="title">
+                    <span contenteditable="true">Feature 1</span>
+                    <span class="delete-icon pointer">&#9932;</span>
+                </span>
+                <span class="title">
+                    <span contenteditable="true">Feature 2</span>
+                    <span class="delete-icon pointer">&#9932;</span>
+                </span>
+                <span
+                    class="link"
+                    id="add-new-feature" tabindex="0">+ add new feature</span>
+                <span contenteditable="true">Target</span>
+            </div>
+
+            <div
+                class="data"
+                id="data">
+                <div>
+                    <input
+                        type="text"
+                        placeholder="input data...">
+                    <input
+                        type="text"
+                        placeholder="input data...">
+                    <input
+                        type="text"
+                        placeholder="input data...">
+                    <span
+                        class="delete-row-btn"
+                        data-index="1">&#9932;</span>
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        placeholder="input data...">
+                    <input
+                        type="text"
+                        placeholder="input data...">
+                    <input
+                        type="text"
+                        placeholder="input data...">
+                    <span
+                        class="delete-row-btn"
+                        data-index="2">&#9932;</span>
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        placeholder="input data...">
+                    <input
+                        type="text"
+                        placeholder="input data...">
+                    <input
+                        type="text"
+                        placeholder="input data...">
+                    <span
+                        class="delete-row-btn"
+                        data-index="3">&#9932;</span>
+                </div>
+            </div>
+            <span
+                class="link"
+                id="add-new-data" tabindex="0">+ add new data</span>
+
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+<!-- <header>
         <form
             action="#"
             method="get"
@@ -224,7 +236,7 @@
     </header> -->
 
 
-    <!-- <h2>Animation Speed</h2>
+<!-- <h2>Animation Speed</h2>
     <div class="slide-container">
         <input
             type="range"
@@ -236,6 +248,3 @@
             id="animation-slider"
         >
     </div> -->
-</body>
-
-</html>
