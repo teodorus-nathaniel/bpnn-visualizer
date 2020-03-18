@@ -1,11 +1,11 @@
 import generateModel from '../utilities/generate-model';
-import startBPNN from './bpnn-animation';
+import startBPNN from '../core/bpnn-animation';
 
 const layerInput = document.getElementsByClassName('input-neuron-count');
 const layerCountInput = document.getElementById('layer-count-input');
 const startButton = document.getElementById('start-btn');
 
-let layers = [ 3, 2, 10, 2 ];
+let layers = [ 2, 2, 1 ];
 
 export default function initModelController(stage) {
 	let network;
@@ -50,7 +50,5 @@ export default function initModelController(stage) {
 		initNeuronInputListener();
 	});
 
-	startButton.addEventListener('click', () =>
-		startBPNN(network.neurons, network.weights)
-	);
+	startButton.addEventListener('click', () => startBPNN(network));
 }
