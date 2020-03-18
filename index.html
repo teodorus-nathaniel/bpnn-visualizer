@@ -5,37 +5,30 @@
     <meta charset="UTF-8" />
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    />
+        content="width=device-width, initial-scale=1.0" />
     <title>BPNN Visualizer</title>
     <link
         rel="stylesheet"
-        href="./src/css/index.css"
-    />
+        href="./src/css/index.css" />
     <script
         src="./dist/main.js"
-        defer
-    ></script>
+        defer></script>
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-        rel="stylesheet"
-    >
+        rel="stylesheet">
 </head>
 
 <body>
     <div
         class="custom-input-modal hide"
-        id="custom-input-modal"
-    >
+        id="custom-input-modal">
         <span
             class="close-btn"
-            id="close-modal-btn"
-        >&#9932;</span>
+            id="close-modal-btn">&#9932;</span>
         <h1>Your input dataset</h1>
         <div
             class="features-titles"
-            id="features-titles"
-        >
+            id="features-titles">
             <span class="title">
                 <span contenteditable="true">Feature 1</span>
                 <span class="delete-icon pointer">&#9932;</span>
@@ -46,74 +39,59 @@
             </span>
             <span
                 class="link"
-                id="add-new-feature"
-            >+ add new feature</span>
+                id="add-new-feature">+ add new feature</span>
             <span contenteditable="true">Target</span>
         </div>
 
         <div
             class="data"
-            id="data"
-        >
+            id="data">
             <div>
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <span
                     class="delete-row-btn"
-                    data-index="1"
-                >&#9932;</span>
+                    data-index="1">&#9932;</span>
             </div>
             <div>
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <span
                     class="delete-row-btn"
-                    data-index="2"
-                >&#9932;</span>
+                    data-index="2">&#9932;</span>
             </div>
             <div>
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <input
                     type="text"
-                    placeholder="input data..."
-                >
+                    placeholder="input data...">
                 <span
                     class="delete-row-btn"
-                    data-index="3"
-                >&#9932;</span>
+                    data-index="3">&#9932;</span>
             </div>
         </div>
         <span
             class="link"
-            id="add-new-data"
-        >+ add new data</span>
+            id="add-new-data">+ add new data</span>
 
     </div>
 
@@ -131,62 +109,57 @@
                     id="layer-count-input"
                     type="text"
                     placeholder="between 2 to 5"
-                    value="3"
-                />
+                    value="3" />
             </div>
             <div class="flex-column neuron-count-input-container">
                 <label>Number of neurons per layer: </label>
                 <div
                     class="flex-row neuron-inputs"
-                    id="neuron-inputs"
-                >
+                    id="neuron-inputs">
                     <input
                         type="text"
                         class="input-neuron-count"
                         placeholder="layer 1"
-                        value="2"
-                    >
+                        value="2">
                     <input
                         type="text"
                         class="input-neuron-count"
                         placeholder="layer 2"
-                        value="2"
-                    >
+                        value="2">
                     <input
                         type="text"
                         class="input-neuron-count"
                         placeholder="layer 3"
-                        value="1"
-                    >
+                        value="1">
                 </div>
                 <canvas id="pixi-canvas"></canvas>
             </div>
         </section>
         <section
             class="input-form-container use-csv"
-            id="input-form-container"
-        >
+            id="input-form-container">
             <h2>Set the input</h2>
             <div class="input-form csv-input-form">
                 <div class="flex-row-space-between">
                     <span class="title">Use CSV file</span>
                     <span
-                        class="link change-input-type-btn"
-                        id="open-modal-btn"
-                    >use custom input</span>
+                        class="link change-input-type-btn open-modal-btn">use custom input</span>
                 </div>
                 <input
                     type="file"
-                    id="csv-file"
-                >
+                    id="csv-file">
             </div>
             <div class="input-form custom-input-form">
                 <div class="flex-row-space-between">
                     <span class="title">Use custom input</span>
                     <span class="link change-input-type-btn">use csv file</span>
                 </div>
-                <span>Your input dimension: 4 x 5</span>
+                <span>
+                    Your input dimension:
+                    <span id="input-dimension--row">_</span> x <span id="input-dimension--column">_</span>
+                </span>
             </div>
+            <span class="link open-modal-btn">Edit data</span>
         </section>
         <button id="start-btn">Start training the model!</button>
     </div>

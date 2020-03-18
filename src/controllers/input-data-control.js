@@ -6,8 +6,14 @@ const dataContainer = document.getElementById('data');
 const titleContainer = document.getElementById('features-titles');
 const addNewFeatureBtn = document.getElementById('add-new-feature');
 const addNewDataBtn = document.getElementById('add-new-data');
+const modal = document.getElementById('custom-input-modal');
 
-export default function initInputDataListeners (){
+const inputDimensionRowText = document.getElementById('input-dimension--row');
+const inputDimensionColumnText = document.getElementById(
+  'input-dimension--column'
+);
+
+function initDeleteDataset (){
   dataContainer.addEventListener('click', (e) => {
     const closest = e.target.closest('.delete-row-btn');
     if (!closest) return;
@@ -15,7 +21,9 @@ export default function initInputDataListeners (){
     const parent = closest.closest('div');
     dataContainer.removeChild(parent);
   });
+}
 
+function initDeleteFeature (){
   titleContainer.addEventListener('click', (e) => {
     const closest = e.target.closest('.delete-icon');
     if (!closest || titleContainer.children.length <= 3) return;
@@ -30,7 +38,9 @@ export default function initInputDataListeners (){
       row.removeChild(row.children[index]);
     });
   });
+}
 
+function initAddFeature (){
   addNewFeatureBtn.addEventListener('click', () => {
     const titles = titleContainer.children;
     const datas = dataContainer.children;
@@ -55,7 +65,9 @@ export default function initInputDataListeners (){
       addNewFeatureBtn.classList.remove('hide');
     }
   });
+}
 
+function initAddDataset (){
   addNewDataBtn.addEventListener('click', () => {
     const featuresLength = titleContainer.children.length - 1;
     dataContainer.insertAdjacentHTML(
@@ -63,4 +75,26 @@ export default function initInputDataListeners (){
       getInputRowDataComponent(featuresLength)
     );
   });
+}
+
+function initOpenCloseCustomInputModal (){
+  const closeModalBtn = document.getElementById('close-modal-btn');
+  closeModalBtn.addEventListener('click', () => {
+    modal.classList.add('hide');
+    inputDimensionColumnText.textContent = titleContainer.children.length - 2;
+    inputDimensionRowText.textContent = dataContainer.children.length;
+  });
+  const openModalBtn = document.getElementsByClassName('open-modal-btn');
+  console.log(openModalBtn);
+  Array.from(openModalBtn).forEach((el) =>
+    el.addEventListener('click', () => modal.classList.remove('hide'))
+  );
+}
+
+export default function initInputDataListeners (){
+  initAddDataset();
+  initDeleteDataset();
+  initAddFeature();
+  initDeleteFeature();
+  initOpenCloseCustomInputModal();
 }
