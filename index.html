@@ -45,7 +45,7 @@
                 <span class="delete-icon pointer">&#9932;</span>
             </span>
             <span
-                class="add-new-option"
+                class="link"
                 id="add-new-feature"
             >+ add new feature</span>
             <span contenteditable="true">Target</span>
@@ -111,13 +111,87 @@
             </div>
         </div>
         <span
-            class="add-new-option"
+            class="link"
             id="add-new-data"
         >+ add new data</span>
 
     </div>
 
-    <header>
+    <div class="container">
+        <h1>Back Propagation Neural Network Visualization</h1>
+
+        <h2>Customize your model</h2>
+
+        <section class="layer-input-container">
+            <div class="flex-row">
+                <label for="layer-count-input">
+                    Number of layers:
+                </label>
+                <input
+                    id="layer-count-input"
+                    type="text"
+                    placeholder="between 2 to 5"
+                    value="3"
+                />
+            </div>
+            <div class="flex-column neuron-count-input-container">
+                <label>Number of neurons per layer: </label>
+                <div
+                    class="flex-row neuron-inputs"
+                    id="neuron-inputs"
+                >
+                    <input
+                        type="text"
+                        class="input-neuron-count"
+                        placeholder="layer 1"
+                        value="2"
+                    >
+                    <input
+                        type="text"
+                        class="input-neuron-count"
+                        placeholder="layer 2"
+                        value="2"
+                    >
+                    <input
+                        type="text"
+                        class="input-neuron-count"
+                        placeholder="layer 3"
+                        value="1"
+                    >
+                </div>
+                <canvas id="pixi-canvas"></canvas>
+            </div>
+        </section>
+        <section
+            class="input-form-container use-csv"
+            id="input-form-container"
+        >
+            <h2>Set the input</h2>
+            <div class="input-form csv-input-form">
+                <div class="flex-row-space-between">
+                    <span class="title">Use CSV file</span>
+                    <span
+                        class="link change-input-type-btn"
+                        id="open-modal-btn"
+                    >use custom input</span>
+                </div>
+                <input
+                    type="file"
+                    id="csv-file"
+                >
+            </div>
+            <div class="input-form custom-input-form">
+                <div class="flex-row-space-between">
+                    <span class="title">Use custom input</span>
+                    <span class="link change-input-type-btn">use csv file</span>
+                </div>
+                <span>Your input dimension: 4 x 5</span>
+            </div>
+        </section>
+        <button id="start-btn">Start training the model!</button>
+    </div>
+
+    <!-- <header>
         <form
             action="#"
             method="get"
@@ -174,11 +248,10 @@
         <div class="input-container">
             <button id="start-btn">Start!</button>
         </div>
-    </header>
+    </header> -->
 
-    <canvas id="pixi-canvas"></canvas>
 
-    <h2>Animation Speed</h2>
+    <!-- <h2>Animation Speed</h2>
     <div class="slide-container">
         <input
             type="range"
@@ -189,7 +262,7 @@
             class="slider"
             id="animation-slider"
         >
-    </div>
+    </div> -->
 </body>
 
 </html>

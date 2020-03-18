@@ -21,14 +21,15 @@ function forwardPass(weights) {
 export default async function startBPNN(network, maxEpoch = 50) {
 	const numLayers = network.layers.length;
 
-	document
-		.getElementById('animation-slider')
-		.addEventListener('change', function() {
-			animationSpeed = this.value;
-			if (timeline) {
-				gsap.to(timeline, { timeScale: animationSpeed });
-			}
-		});
+	// TODO: uncomment when added animation speed slider
+	// document
+	// 	.getElementById('animation-slider')
+	// 	.addEventListener('change', function() {
+	// 		animationSpeed = this.value;
+	// 		if (timeline) {
+	// 			gsap.to(timeline, { timeScale: animationSpeed });
+	// 		}
+	// 	});
 
 	const bpnnModel = new BPNN(
 		network.layers,

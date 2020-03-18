@@ -12,18 +12,138 @@
 html,
 body {
 	width: 100%;
-	height: 100%;
 	margin: 0;
 	padding: 0;
 	overflow-x: hidden;
-	background-color: #808080;
+}
+
+body::-webkit-scrollbar {
+	width: 4px;
+}
+body::-webkit-scrollbar-thumb {
+	background-color: rgb(0, 140, 255);
+}
+body::-webkit-scrollbar-track {
+	background-color: rgb(50, 50, 50);
+}
+
+input {
+	border: none;
+	padding: 5px 7px;
+	box-shadow: 1px 1px 2px rgba(50, 50, 50, .2) inset, -1px -1px 2px white inset;
+	border-radius: 5px;
 }
 
 .pointer {
 	cursor: pointer;
 }
 
-#csv-form,
+.link {
+	color: blue;
+	font-size: .8em;
+	cursor: pointer;
+	font-weight: bold;
+	display: inline-block;
+}
+.flex-row-space-between {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+}
+
+.flex-row {
+	display: flex;
+	align-items: center;
+}
+.flex-column {
+	display: flex;
+	flex-direction: column;
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+	padding: 50px 70px;
+	max-width: 1000px;
+	margin: 0px auto;
+}
+
+.container h1 {
+	margin-bottom: 50px;
+	font-weight: normal;
+}
+
+.container h2 {
+	margin-bottom: 25px;
+	font-size: 1.3em;
+}
+
+section {
+	display: flex;
+	flex-direction: column;
+}
+section > * {
+	margin-bottom: 15px;
+}
+
+.layer-input-container {
+	margin-bottom: 30px;
+}
+.layer-input-container label {
+	margin-right: 15px;
+}
+.layer-input-container .neuron-count-input-container > * {
+	margin-bottom: 10px;
+}
+.neuron-inputs > * {
+	margin: 10px 20px;
+}
+.neuron-inputs > *:first-child {
+	margin-left: 0px;
+}
+
+#pixi-canvas {
+	width: 300px;
+	border-radius: 20px;
+	transition: width 250ms ease-out;
+}
+#pixi-canvas.full-screen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	border-radius: 0px;
+}
+
+.input-form-container .input-form > * {
+	margin-bottom: 10px;
+}
+.input-form-container .input-form input {
+	width: 100%;
+}
+
+.input-form-container.use-custom .csv-input-form,
+.input-form-container.use-csv .custom-input-form {
+	opacity: 0;
+	pointer-events: none;
+	display: none;
+	transition: opacity 300ms ease-out;
+}
+.title {
+	font-style: italic;
+}
+
+#start-btn {
+	background-color: rgb(0, 132, 255);
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	margin-top: 20px;
+}
+/* #csv-form,
 .input-container {
 	width: 100%;
 	padding: 1% 2%;
@@ -47,7 +167,7 @@ header {
 }
 #open-modal-btn:hover {
 	text-decoration: underline;
-}
+} */
 
 /* INPUT MODAL STYLES */
 .custom-input-modal.hide {
@@ -58,7 +178,9 @@ header {
 	opacity: 1;
 	transform: translateX(0);
 	transition: transform 500ms ease-out, opacity 500ms ease-out;
-	position: absolute;
+	position: fixed;
+	top: 0;
+	left: 0;
 	width: 100vw;
 	height: 100vh;
 	background-color: white;
@@ -112,13 +234,6 @@ header {
 	margin-left: 50px;
 }
 
-.add-new-option {
-	color: blue;
-	font-size: .8em;
-	cursor: pointer;
-	font-weight: bold;
-	display: inline-block;
-}
 #add-new-feature.hide {
 	display: none;
 }
@@ -137,9 +252,6 @@ header {
 .data div input {
 	margin: 10px 0px;
 	margin-right: 20px;
-	border: none;
-	padding: 5px 7px;
-	box-shadow: 1px 1px 2px rgba(50, 50, 50, .2) inset, -1px -1px 2px white inset;
 }
 .data div input::placeholder {
 	color: rgba(0, 0, 0, .3);

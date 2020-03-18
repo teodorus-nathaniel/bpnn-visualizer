@@ -1,6 +1,7 @@
 import generateModel from '../utilities/generate-model';
 import startBPNN from '../core/bpnn-animation';
 
+const layerInputContainer = document.getElementById('neuron-inputs');
 const layerInput = document.getElementsByClassName('input-neuron-count');
 const layerCountInput = document.getElementById('layer-count-input');
 const startButton = document.getElementById('start-btn');
@@ -39,10 +40,11 @@ export default function initModelController(stage) {
 			layers = layers.slice(0, layerCount);
 		} else return;
 
-		layerInput.innerHTML = Array.from({ length: layerCount }).reduce(
+		layerInputContainer.innerHTML = Array.from({ length: layerCount }).reduce(
 			(acc, _, idx) =>
 				acc +
-				`<input type="text" placeholder="neuron for layer ${idx + 1}...">`,
+				`<input class="input-neuron-count" type="text" placeholder="layer ${idx +
+					1}..." value="${layers[idx]}">`,
 			''
 		);
 
@@ -50,5 +52,8 @@ export default function initModelController(stage) {
 		initNeuronInputListener();
 	});
 
-	startButton.addEventListener('click', () => startBPNN(network));
+	startButton.addEventListener('click', () => {
+		document.getElementById('pixi-canvas').classList.add('full-screen');
+		startBPNN(network);
+	});
 }
