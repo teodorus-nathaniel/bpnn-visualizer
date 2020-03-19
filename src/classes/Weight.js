@@ -2,14 +2,23 @@ import * as PIXI from 'pixi.js';
 import WeightParticle from './WeightParticle';
 
 export default class Weight extends PIXI.Graphics {
-  constructor (stage, from, to, value, lineWidth = 1.5, lineColor = 0x5c68c0) {
+  constructor (
+    stage,
+    from,
+    to,
+    value,
+    lineWidth = 1.5,
+    colorPositive = 0x96c37b,
+    colorNegative = 0xba7879
+  ) {
     super();
 
     this.stage = stage;
     this.from = from;
     this.to = to;
     this.lineWidth = lineWidth;
-    this.lineColor = lineColor;
+    this.colorPositive = colorPositive;
+    this.colorNegative = colorNegative;
 
     this.value = value;
 
@@ -23,7 +32,9 @@ export default class Weight extends PIXI.Graphics {
   renderComponent () {
     this.clear();
 
-    this.lineStyle(this.lineWidth, this.lineColor, this.value)
+    const color = this.value > 0 ? this.colorPositive : this.colorNegative;
+
+    this.lineStyle(this.lineWidth, color, Math.abs(this.value))
       .moveTo(this.from.x, this.from.y)
       .lineTo(this.to.x, this.to.y);
 

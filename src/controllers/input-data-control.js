@@ -85,10 +85,43 @@ function initOpenCloseCustomInputModal (){
     inputDimensionRowText.textContent = dataContainer.children.length;
   });
   const openModalBtn = document.getElementsByClassName('open-modal-btn');
-  console.log(openModalBtn);
   Array.from(openModalBtn).forEach((el) =>
     el.addEventListener('click', () => modal.classList.remove('hide'))
   );
+}
+
+function getTitles (){
+  let titles = Array.from(titleContainer.children).map((child, idx, arr) => {
+    if (child.children.length === 0) return child.textContent;
+    return child.children[0].textContent;
+  });
+  titles.splice(titles.length - 2, 1);
+  return titles;
+}
+
+function getInputData (){
+  try {
+    return Array.from(dataContainer.children).reduce((acc, rowDOM) => {
+      let rowData = [];
+      for (let i = 0; i < rowDOM.children.length - 1; i++) {
+        const element = rowDOM.children[i];
+        if (!element.value) throw new Error('Input is not filled!');
+        rowData.push(element.value);
+      }
+      acc.push(rowData);
+      return acc;
+    }, []);
+  } catch (e) {
+    alert('Your input data is not fully filled!');
+    return null;
+  }
+}
+
+export function getDataset (){
+  let titles = getTitles();
+  let data = getInputData();
+
+  return [ titles, data ];
 }
 
 export default function initInputDataListeners (){

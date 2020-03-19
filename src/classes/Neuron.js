@@ -1,14 +1,23 @@
 import * as PIXI from 'pixi.js';
-import { DropShadowFilter } from '@pixi/filter-drop-shadow';
 
 export default class Neuron extends PIXI.Graphics {
-  constructor (stage, pos, value, radius = 15, color = 0x1fffff) {
+  constructor (
+    stage,
+    pos,
+    value,
+    radius = 15,
+    colorPositive = 0x96c37b,
+    colorNegative = 0xba7879,
+    backgroundColor = 0x191c26
+  ) {
     super();
 
     this.stage = stage;
     this.value = value;
     this.pos = pos;
-    this.color = color;
+    this.colorPositive = colorPositive;
+    this.colorNegative = colorNegative;
+    this.backgroundColor = backgroundColor;
     this.radius = radius;
 
     this.initializeContainer();
@@ -16,7 +25,6 @@ export default class Neuron extends PIXI.Graphics {
   }
 
   initializeContainer () {
-    const color = 0x1fffff;
     const container = new PIXI.Container();
     container.addChild(this);
     container.zIndex = 9;
@@ -45,10 +53,15 @@ export default class Neuron extends PIXI.Graphics {
     const { x, y } = this.pos;
     this.clear();
 
-    this.beginFill(0x0f0f0f, 0).drawRect(x - 50, y - 50, 100, 100).endFill();
-    this.beginFill(0x0f0f0f).drawCircle(x, y, this.radius).endFill();
-    this.beginFill(this.color, this.value)
+    // this.beginFill(0x0f0f0f, 0).drawRect(x - 50, y - 50, 100, 100).endFill();
+    this.beginFill(this.backgroundColor)
       .drawCircle(x, y, this.radius)
       .endFill();
+
+    const color = this.value > 0 ? 0x96c37b : 0xba7879;
+    this.beginFill(color, Math.abs(this.value))
+      .drawCircle(x, y, this.radius)
+      .endFill();
+    this.lineStyle(1, 0xffffff).drawCircle(x, y, this.radius);
   }
 }

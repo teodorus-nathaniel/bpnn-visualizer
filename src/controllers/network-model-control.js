@@ -1,5 +1,6 @@
 import generateModel from '../utilities/generate-model';
 import startBPNN from '../core/bpnn-animation';
+import { getDataset } from './input-data-control';
 
 const layerInputContainer = document.getElementById('neuron-inputs');
 const layerInput = document.getElementsByClassName('input-neuron-count');
@@ -56,8 +57,10 @@ export default function initModelController (stage){
   });
 
   startButton.addEventListener('click', () => {
+    const [ titles, data ] = getDataset();
+    console.log(titles, data);
+    if (!data) return;
     canvas.classList.add('full-screen');
-    // TODO: add functionality for back and reset btn
     Array.from(overlayIcons).forEach((el) => el.classList.add('show'));
     startBPNN(network);
   });
