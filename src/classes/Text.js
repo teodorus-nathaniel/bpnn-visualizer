@@ -1,7 +1,8 @@
 import * as PIXI from 'pixi.js';
+import gsap from 'gsap/gsap-core';
 
 export default class Text extends PIXI.Text {
-	constructor(text, stage, timeline, pos) {
+	constructor(text, stage, pos, timeline) {
 		super(text.toString().substr(0, 4), {
 			align: 'center',
 			fontFamily: 'Arial',
@@ -15,7 +16,22 @@ export default class Text extends PIXI.Text {
 		this.pos = pos;
 
 		this.renderComponent();
-		this.animate();
+
+		if (!timeline) {
+			this.fadeIn();
+		} else this.animate();
+	}
+
+	fadeIn() {
+		gsap.to(this, { duration: 1, pixi: { alpha: 1 } });
+	}
+
+	fadeOut() {
+		gsap.to(this, {
+			duration: 1,
+			pixi: { alpha: 0 },
+			onComplete: () => this.destroy()
+		});
 	}
 
 	animate() {
