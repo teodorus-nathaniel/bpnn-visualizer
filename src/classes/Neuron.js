@@ -23,6 +23,7 @@ export default class Neuron extends PIXI.Graphics {
 
 		this.initializeContainer();
 		this.renderComponent();
+		this.initInteractive();
 	}
 
 	initializeContainer() {
@@ -35,12 +36,28 @@ export default class Neuron extends PIXI.Graphics {
 	}
 
 	showValue(timeline) {
-		new Text(this.value, this.stage, timeline, this.pos);
+		new Text(this.value, this.stage, this.pos, timeline);
 	}
 
 	resetValue() {
 		this.value = 0;
 		this.renderComponent();
+	}
+
+	initInteractive() {
+		this.interactive = true;
+		this.hitArea = new PIXI.Circle(this.pos.x, this.pos.y, this.radius);
+
+		let text = null;
+		this.mouseover = function() {
+			text = new Text(this.value, this.stage, this.pos);
+		};
+
+		this.mouseout = function() {
+			if (text) {
+				text.fadeOut();
+			}
+		};
 	}
 
 	renderComponent() {
