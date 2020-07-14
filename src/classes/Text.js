@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import gsap from 'gsap/gsap-core';
 
 export default class Text extends PIXI.Text {
-	constructor(text, stage, pos, timeline) {
+	constructor(text, stage, pos, timeline, rotate, gap = 30) {
 		super(text.toString().substr(0, 4), {
 			align: 'center',
 			fontFamily: 'Arial',
@@ -14,21 +14,25 @@ export default class Text extends PIXI.Text {
 
 		this.timeline = timeline;
 		this.pos = pos;
+		this.rotate = rotate;
+		this.gap = gap;
 
 		this.renderComponent();
 
 		if (!timeline) {
 			this.fadeIn();
-		} else this.animate();
+		} else {
+			this.animate();
+		}
 	}
 
 	fadeIn() {
-		gsap.to(this, { duration: 1, pixi: { alpha: 1 } });
+		gsap.to(this, { duration: 0.5, pixi: { alpha: 1 } });
 	}
 
 	fadeOut() {
 		gsap.to(this, {
-			duration: 1,
+			duration: 0.5,
 			pixi: { alpha: 0 },
 			onComplete: () => this.destroy()
 		});
@@ -36,11 +40,11 @@ export default class Text extends PIXI.Text {
 
 	animate() {
 		this.timeline
-			.to(this, { duration: 2, pixi: { alpha: 1 } }, 'fadingIn')
+			.to(this, { duration: 1, pixi: { alpha: 1 } }, 'fadingIn')
 			.to(
 				this,
 				{
-					duration: 20,
+					duration: 12,
 					pixi: { alpha: 1 }
 				},
 				'show'
@@ -48,8 +52,10 @@ export default class Text extends PIXI.Text {
 			.to(
 				this,
 				{
-					duration: 2,
-					onComplete: () => this.destroy(),
+					duration: 1,
+					onComplete: () => {
+						this.destroy();
+					},
 					pixi: { alpha: 0 }
 				},
 				'fadingOut'
@@ -62,7 +68,7 @@ export default class Text extends PIXI.Text {
 
 		this.alpha = 0;
 
-		this.setTransform(x, y - 30);
+		this.setTransform(x, y - this.gap, undefined, undefined, this.rotate);
 		this.stage.addChild(this);
 	}
 }

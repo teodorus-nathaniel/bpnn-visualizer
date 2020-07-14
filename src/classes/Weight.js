@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import WeightParticle from './WeightParticle';
+import Text from './Text';
 
 export default class Weight extends PIXI.Graphics {
 	constructor(
@@ -23,10 +24,53 @@ export default class Weight extends PIXI.Graphics {
 		this.value = value;
 
 		this.renderComponent();
+		this.initInteractive();
 	}
 
 	animateParticle(timeline) {
 		new WeightParticle(this.stage, timeline, this.from, this.to);
+	}
+
+	animateParticleReverse(timeline) {
+		new WeightParticle(this.stage, timeline, this.from, this.to, true);
+	}
+
+	initInteractive() {
+		this.interactive = true;
+		this.hitArea = new PIXI.Polygon(
+			new PIXI.Point(this.from.x, this.from.y - 10),
+			new PIXI.Point(this.to.x, this.to.y - 10),
+			new PIXI.Point(this.to.x, this.to.y + 10),
+			new PIXI.Point(this.from.x, this.from.y + 10)
+		);
+
+		let text = null;
+		const dist = {
+			x: this.to.x - this.from.x,
+			y: this.to.y - this.from.y
+		};
+
+		const middle = {
+			x: this.from.x + dist.x / 2,
+			y: this.from.y + dist.y / 2
+		};
+
+		this.mouseover = function() {
+			text = new Text(
+				this.value,
+				this.stage,
+				middle,
+				undefined,
+				Math.atan2(dist.y, dist.x),
+				15
+			);
+		};
+
+		this.mouseout = function() {
+			if (text) {
+				text.fadeOut();
+			}
+		};
 	}
 
 	renderComponent() {

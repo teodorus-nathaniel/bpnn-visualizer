@@ -7,7 +7,7 @@ import gsap from 'gsap';
 import BPNN from '../model/bpnn';
 
 let timeline;
-let animationSpeed = 9;
+let animationSpeed = 19;
 
 function forwardPass(weights) {
 	return new Promise((resolve) => {
@@ -22,6 +22,21 @@ function forwardPass(weights) {
 	});
 }
 
+function backwardPass(weights) {
+	return new Promise((resolve) => {
+		timeline = new gsap.timeline({ onComplete: resolve });
+		gsap.to(timeline, { timeScale: animationSpeed });
+
+		const nextNeuronCount = weights[0].length;
+		for (let i = 0; i < nextNeuronCount; i++) {
+			const weightsToNextNeuron = getNextDimension(weights, i);
+			weightsToNextNeuron.forEach((weight) =>
+				weight.animateParticleReverse(timeline)
+			);
+		}
+	});
+}
+
 function updateNeuronValues(neurons, neuronValues) {
 	return new Promise((resolve) => {
 		timeline = new gsap.timeline({ onComplete: resolve });
@@ -31,6 +46,21 @@ function updateNeuronValues(neurons, neuronValues) {
 			neuron.value = neuronValues._data[i];
 			neuron.renderComponent();
 			neuron.showValue(timeline);
+		});
+	});
+}
+
+function updateWeightValues(weights, newWeights) {
+	return new Promise((resolve) => {
+		timeline = new gsap.timeline({ onComplete: resolve });
+		gsap.to(timeline, { timeScale: animationSpeed });
+
+		weights.forEach((weight, i) => {
+			weight.forEach((w, j) => {
+				w.value = newWeights[i][j];
+				w.renderComponent();
+				// w.showValue(timeline);
+			});
 		});
 	});
 }
@@ -50,17 +80,26 @@ export default async function startBPNN(network, dataset, maxEpoch = 50) {
 		});
 
 		res = bpnn.next();
-		console.log(res.value);
 		const { neuronValues, newWeights, newBiases, error } = res.value;
 
-		network.neurons[0].forEach((neuron, i) => {
-			neuron.value = neuronValues[0]._data[i];
-			neuron.renderComponent();
+		await new Promise((resolve) => {
+			const timeline = gsap.timeline({ onComplete: resolve });
+			gsap.to(timeline, { timeScale: animationSpeed });
+			network.neurons[0].forEach((neuron, i) => {
+				neuron.value = neuronValues[0]._data[i];
+				neuron.renderComponent();
+				neuron.showValue(timeline);
+			});
 		});
 
 		for (let j = 0; j < numLayers - 1; j++) {
 			await forwardPass(network.weights[j]);
 			await updateNeuronValues(network.neurons[j + 1], neuronValues[j + 1]);
+		}
+
+		for (let j = numLayers - 2; j >= 0; j--) {
+			await backwardPass(network.weights[j]);
+			await updateWeightValues(network.weights[j], newWeights[j]);
 		}
 	}
 }
