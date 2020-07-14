@@ -2,175 +2,250 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0" />
-    <title>BPNN Visualizer</title>
-    <link
-        rel="stylesheet"
-        href="./src/css/index.css" />
-    <script
-        src="./dist/main.js"
-        defer></script>
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-        rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>BPNN Visualizer</title>
+  <link
+    rel="stylesheet"
+    href="./src/css/index.css"
+  />
+  <script
+    src="./dist/main.js"
+    defer
+  ></script>
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+    rel="stylesheet"
+  >
 </head>
 
 <body>
 
-    <span class="overlay-icons" id="back-btn">&#8592;</span>
-    <span class="overlay-icons" id="reset-btn">&#8634;</span>
+  <span
+    class="overlay-icons"
+    id="back-btn"
+  >&#8592;</span>
+  <span
+    class="overlay-icons"
+    id="reset-btn"
+  >&#8634;</span>
 
-    <div class="container">
-        <h1>Back Propagation Neural Network Visualization</h1>
+  <div class="container">
+    <h1>Back Propagation Neural Network Visualization</h1>
 
-        <h2>Customize your model</h2>
+    <h2>Customize your model</h2>
 
-        <section class="layer-input-container">
-            <div class="flex-row">
-                <label for="layer-count-input">
-                    Number of layers:
-                </label>
-                <input
-                    id="layer-count-input"
-                    type="text"
-                    placeholder="between 2 to 5"
-                    value="3" />
-            </div>
-            <div class="flex-column neuron-count-input-container">
-                <label>Number of neurons per layer: </label>
-                <div
-                    class="flex-row neuron-inputs"
-                    id="neuron-inputs">
-                    <input
-                        type="text"
-                        class="input-neuron-count"
-                        placeholder="layer 1"
-                        value="2">
-                    <input
-                        type="text"
-                        class="input-neuron-count"
-                        placeholder="layer 2"
-                        value="2">
-                    <input
-                        type="text"
-                        class="input-neuron-count"
-                        placeholder="layer 3"
-                        value="1">
-                </div>
-                <canvas id="pixi-canvas"></canvas>
-            </div>
-        </section>
-        <section
-            class="input-form-container use-csv"
-            id="input-form-container">
-            <h2>Set the input</h2>
-            <div class="input-form csv-input-form">
-                <div class="flex-row-space-between">
-                    <span class="title">Use CSV file</span>
-                    <span
-                        class="link change-input-type-btn open-modal-btn" tabindex="0">use custom input</span>
-                </div>
-                <input
-                    type="file"
-                    id="csv-file">
-            </div>
-            <div class="input-form custom-input-form">
-                <div class="flex-row-space-between">
-                    <span class="title">Use custom input</span>
-                    <span class="link change-input-type-btn" tabindex="0">use csv file</span>
-                </div>
-                <div>
-                    <span>
-                        Your input dimension:
-                        <span id="input-dimension--row">_</span> x <span id="input-dimension--column">_</span>
-                    </span>
-                </div>
-                <span class="link open-modal-btn" tabindex="0">Edit data</span>
-            </div>
-        </section>
-        <button id="start-btn">Start training the model!</button>
-    </div>
-
-    <div
-        class="custom-input-modal hide"
-        id="custom-input-modal">
-        <div class="modal-container">
-            <span
-                class="close-btn"
-                id="close-modal-btn">&#9932;</span>
-            <h1>Your input dataset</h1>
-            <div
-                class="features-titles"
-                id="features-titles">
-                <span class="title">
-                    <span contenteditable="true">Feature 1</span>
-                    <span class="delete-icon pointer">&#9932;</span>
-                </span>
-                <span class="title">
-                    <span contenteditable="true">Feature 2</span>
-                    <span class="delete-icon pointer">&#9932;</span>
-                </span>
-                <span
-                    class="link"
-                    id="add-new-feature" tabindex="0">+ add new feature</span>
-                <span contenteditable="true">Target</span>
-            </div>
-
-            <div
-                class="data"
-                id="data">
-                <div>
-                    <input
-                        type="text"
-                        placeholder="input data...">
-                    <input
-                        type="text"
-                        placeholder="input data...">
-                    <input
-                        type="text"
-                        placeholder="input data...">
-                    <span
-                        class="delete-row-btn"
-                        data-index="1">&#9932;</span>
-                </div>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="input data...">
-                    <input
-                        type="text"
-                        placeholder="input data...">
-                    <input
-                        type="text"
-                        placeholder="input data...">
-                    <span
-                        class="delete-row-btn"
-                        data-index="2">&#9932;</span>
-                </div>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="input data...">
-                    <input
-                        type="text"
-                        placeholder="input data...">
-                    <input
-                        type="text"
-                        placeholder="input data...">
-                    <span
-                        class="delete-row-btn"
-                        data-index="3">&#9932;</span>
-                </div>
-            </div>
-            <span
-                class="link"
-                id="add-new-data" tabindex="0">+ add new data</span>
-
+    <section class="layer-input-container">
+      <div class="flex-row">
+        <label for="layer-count-input">
+          Number of layers:
+        </label>
+        <input
+          id="layer-count-input"
+          type="text"
+          placeholder="between 2 to 5"
+          value="3"
+        />
+      </div>
+      <div class="flex-column neuron-count-input-container">
+        <label>Number of neurons per layer: </label>
+        <div
+          class="flex-row neuron-inputs"
+          id="neuron-inputs"
+        >
+          <input
+            type="text"
+            class="input-neuron-count"
+            placeholder="layer 1"
+            value="2"
+          >
+          <input
+            type="text"
+            class="input-neuron-count"
+            placeholder="layer 2"
+            value="2"
+          >
+          <input
+            type="text"
+            class="input-neuron-count"
+            placeholder="layer 3"
+            value="1"
+          >
         </div>
+        <canvas id="pixi-canvas"></canvas>
+      </div>
+    </section>
+    <section
+      class="input-form-container use-custom"
+      id="input-form-container"
+    >
+      <h2>Set the input</h2>
+      <div class="input-form csv-input-form">
+        <div class="flex-row-space-between">
+          <span class="title">Use CSV file</span>
+          <span
+            class="link change-input-type-btn open-modal-btn"
+            tabindex="0"
+          >use custom input</span>
+        </div>
+        <input
+          type="file"
+          id="csv-file"
+        >
+      </div>
+      <div class="input-form custom-input-form">
+        <div class="flex-row-space-between">
+          <span class="title">Use custom input (Default: XOR Dataset)</span>
+          <span
+            class="link change-input-type-btn"
+            tabindex="0"
+          >use csv file</span>
+        </div>
+        <div>
+          <span>
+            Your input dimension:
+            <span id="input-dimension--row">4</span> x <span id="input-dimension--column">2</span>
+          </span>
+        </div>
+        <span
+          class="link open-modal-btn"
+          tabindex="0"
+        >Edit data</span>
+      </div>
+    </section>
+    <button id="start-btn">Start training the model!</button>
+  </div>
+
+  <div
+    class="custom-input-modal hide"
+    id="custom-input-modal"
+  >
+    <div class="modal-container">
+      <span
+        class="close-btn"
+        id="close-modal-btn"
+      >&#9932;</span>
+      <h1>Your input dataset</h1>
+      <div
+        class="features-titles"
+        id="features-titles"
+      >
+        <span class="title">
+          <span contenteditable="true">Feature 1</span>
+          <span class="delete-icon pointer">&#9932;</span>
+        </span>
+        <span class="title">
+          <span contenteditable="true">Feature 2</span>
+          <span class="delete-icon pointer">&#9932;</span>
+        </span>
+        <span
+          class="link"
+          id="add-new-feature"
+          tabindex="0"
+        >+ add new feature</span>
+        <span contenteditable="true">Target</span>
+      </div>
+
+      <div
+        class="data"
+        id="data"
+      >
+        <div>
+          <input
+            type="text"
+            placeholder="input data..."
+            value='1'
+          >
+          <input
+            type="text"
+            placeholder="input data..."
+            value='1'
+          >
+          <input
+            type="text"
+            placeholder="input data..."
+            value='0'
+          >
+          <span
+            class="delete-row-btn"
+            data-index="1"
+          >&#9932;</span>
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="input data..."
+            value='1'
+          >
+          <input
+            type="text"
+            placeholder="input data..."
+            value='0'
+          >
+          <input
+            type="text"
+            placeholder="input data..."
+            value='1'
+          >
+          <span
+            class="delete-row-btn"
+            data-index="2"
+          >&#9932;</span>
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="input data..."
+            value='0'
+          >
+          <input
+            type="text"
+            placeholder="input data..."
+            value='1'
+          >
+          <input
+            type="text"
+            placeholder="input data..."
+            value='1'
+          >
+          <span
+            class="delete-row-btn"
+            data-index="3"
+          >&#9932;</span>
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="input data..."
+            value='0'
+          >
+          <input
+            type="text"
+            placeholder="input data..."
+            value='0'
+          >
+          <input
+            type="text"
+            placeholder="input data..."
+            value='0'
+          >
+          <span
+            class="delete-row-btn"
+            data-index="3"
+          >&#9932;</span>
+        </div>
+      </div>
+      <span
+        class="link"
+        id="add-new-data"
+        tabindex="0"
+      >+ add new data</span>
+
     </div>
+  </div>
 </body>
 
 </html>

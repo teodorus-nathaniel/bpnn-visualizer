@@ -150,12 +150,9 @@ export default class BPNN {
 	*train(maxEpoch = 1000) {
 		const errors = [];
 
-		for (let i = 0; i < maxEpoch; i++) {
+		let i = 0;
+		while (true) {
 			console.log(`EPOCH ${i + 1}: `);
-			// const trainDataIdx = Math.floor(Math.random() * this.inp.length);
-			// const trainData = this.inp[trainDataIdx];
-			// const target = this.target[trainDataIdx];
-
 			for (let j = 0; j < this.inp.length; j++) {
 				const trainData = this.inp[j];
 				const target = this.target[j];
