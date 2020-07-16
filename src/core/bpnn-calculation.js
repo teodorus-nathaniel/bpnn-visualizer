@@ -36,11 +36,11 @@ class BPNN {
   }
 
   _checkInput () {
-    if (this.inp[0].length != this.layers[0])
+    if (this.inp[0].length !== this.layers[0])
       throw new Error('The input layers and input dimension does not match!');
-    else if (this.target[0].length != this.layers[this.layers.length - 1])
+    else if (this.target[0].length !== this.layers[this.layers.length - 1])
       throw new Error('The output layers and target dimension does not match!');
-    else if (this.inp.length != this.target.length)
+    else if (this.inp.length !== this.target.length)
       throw new Error('The input and output data count does not match!');
   }
 
