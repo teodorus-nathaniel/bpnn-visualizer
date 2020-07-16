@@ -10,6 +10,7 @@ import { minmaxScale, oneHotEncode } from '../utilities/preprocessing';
 let timeline;
 let animationSpeed = 19;
 let endAnimation = false;
+let encoder;
 
 const currentEpochLabel = document.getElementById('current-epoch');
 
@@ -54,6 +55,21 @@ function updateNeuronValues (neurons, neuronValues){
   });
 }
 
+function updateNeuronOutputValues (neurons, neuronValues, target){
+  return new Promise((resolve) => {
+    timeline = new gsap.timeline({ onComplete: resolve });
+    gsap.to(timeline, { timeScale: animationSpeed });
+
+    // TODO: cari argmax dari tiap itu, trs yang indexnya bener di correct in
+
+    neurons.forEach((neuron, i) => {
+      neuron.value = neuronValues._data[i];
+      neuron.renderComponent();
+      neuron.showValue(timeline, `${neuron.value} --> ${target[i]}`);
+    });
+  });
+}
+
 function updateWeightValues (weights, newWeights){
   return new Promise((resolve) => {
     timeline = new gsap.timeline({ onComplete: resolve });
@@ -93,7 +109,9 @@ export default async function startBPNN (network, dataset, maxEpoch = 50){
   input = input.map((x) => x.map((y) => parseFloat(y)));
 
   input = minmaxScale(input);
-  target = oneHotEncode(target);
+
+  encoder = oneHotEncode(target);
+  target = encoder.transform();
 
   console.log({ input, target });
 
@@ -126,7 +144,7 @@ export default async function startBPNN (network, dataset, maxEpoch = 50){
     });
 
     res = bpnn.next();
-    const { neuronValues, newWeights, newBiases, error } = res.value;
+    const { neuronValues, newWeights, newBiases, error, target } = res.value;
 
     await new Promise((resolve) => {
       const timeline = gsap.timeline({ onComplete: resolve });
@@ -145,7 +163,15 @@ export default async function startBPNN (network, dataset, maxEpoch = 50){
 
     for (let j = 0; j < numLayers - 1; j++) {
       await forwardPass(network.weights[j]);
-      await updateNeuronValues(network.neurons[j + 1], neuronValues[j + 1]);
+      if (j !== numLayers - 2) {
+        await updateNeuronValues(network.neurons[j + 1], neuronValues[j + 1]);
+      } else {
+        await updateNeuronOutputValues(
+          network.neurons[j + 1],
+          neuronValues[j + 1],
+          target
+        );
+      }
     }
 
     if (endAnimation) {

@@ -35,12 +35,19 @@ export function oneHotEncode (target){
     }
   });
 
-  if (uniques.size <= 2) {
-    return target.map((val) => [ mapper[val].key - 1 ]);
-  }
+  return {
+    transform () {
+      if (uniques.size <= 2) {
+        return target.map((val) => [ mapper[val].key - 1 ]);
+      }
 
-  let newTarget = math.zeros([ target.length, uniques.size ])._data;
-  target.forEach((val, idx) => (newTarget[idx][mapper[val].key - 1] = 1));
+      let newTarget = math.zeros([ target.length, uniques.size ])._data;
+      target.forEach((val, idx) => (newTarget[idx][mapper[val].key - 1] = 1));
 
-  return newTarget;
+      return newTarget;
+    },
+    inverse_transform (data) {
+      return mapper[data] ? mapper[data].val : 'None';
+    }
+  };
 }

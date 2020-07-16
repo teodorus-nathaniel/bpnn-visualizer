@@ -184,7 +184,8 @@ export default class BPNN {
           neuronValues,
           newWeights: this.w,
           newBiases: this.b,
-          error: mseError
+          error: mseError,
+          target
         };
       }
     }
