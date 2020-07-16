@@ -8,6 +8,9 @@ import BPNN from '../model/bpnn';
 
 let timeline;
 let animationSpeed = 19;
+let endAnimation = false;
+
+const currentEpochLabel = document.getElementById('current-epoch');
 
 function forwardPass(weights) {
 	return new Promise((resolve) => {
@@ -57,12 +60,28 @@ function updateWeightValues(weights, newWeights) {
 
 		weights.forEach((weight, i) => {
 			weight.forEach((w, j) => {
-				w.value = newWeights[i][j];
+				w.updateValue(newWeights[i][j]);
 				w.renderComponent();
-				// w.showValue(timeline);
+				w.showValue(timeline);
 			});
 		});
 	});
+}
+
+export function animationSpeedListener() {
+	animationSpeed = this.value;
+	if (timeline) {
+		gsap.to(timeline, { timeScale: animationSpeed });
+	}
+}
+
+export function stopAnimation() {
+	endAnimation = true;
+	if (timeline) timeline.kill();
+}
+
+export function startAnimation() {
+	endAnimation = false;
 }
 
 export default async function startBPNN(network, dataset, maxEpoch = 50) {
@@ -70,11 +89,30 @@ export default async function startBPNN(network, dataset, maxEpoch = 50) {
 	const target = getNextDimension(dataset, dataset[0].length - 1);
 	const input = getDataExceptColumn(dataset, dataset[0].length - 1);
 
-	const bpnnModel = new BPNN(network.layers, input, target);
-	const bpnn = bpnnModel.train(2000);
+	const learningRate = document.getElementById('learning-rate-input').value;
+	const activation = document.getElementById('activation-input').value;
+	const epoch = document.getElementById('epoch-input').value;
+
+	const bpnnModel = new BPNN(
+		network.layers,
+		input,
+		target,
+		undefined,
+		undefined,
+		learningRate,
+		activation
+	);
+
+	const bpnn = bpnnModel.train(epoch);
 
 	let res;
 	for (let i = 0; i < maxEpoch; i++) {
+		if (endAnimation) {
+			break;
+		}
+
+		currentEpochLabel.textContent = i + 1;
+
 		forEachElement(network.neurons, (neuron) => {
 			neuron.resetValue();
 		});
@@ -84,6 +122,7 @@ export default async function startBPNN(network, dataset, maxEpoch = 50) {
 
 		await new Promise((resolve) => {
 			const timeline = gsap.timeline({ onComplete: resolve });
+
 			gsap.to(timeline, { timeScale: animationSpeed });
 			network.neurons[0].forEach((neuron, i) => {
 				neuron.value = neuronValues[0]._data[i];
@@ -92,9 +131,17 @@ export default async function startBPNN(network, dataset, maxEpoch = 50) {
 			});
 		});
 
+		if (endAnimation) {
+			break;
+		}
+
 		for (let j = 0; j < numLayers - 1; j++) {
 			await forwardPass(network.weights[j]);
 			await updateNeuronValues(network.neurons[j + 1], neuronValues[j + 1]);
+		}
+
+		if (endAnimation) {
+			break;
 		}
 
 		for (let j = numLayers - 2; j >= 0; j--) {

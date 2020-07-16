@@ -3,7 +3,7 @@ import gsap from 'gsap/gsap-core';
 
 export default class Text extends PIXI.Text {
 	constructor(text, stage, pos, timeline, rotate, gap = 30) {
-		super(text.toString().substr(0, 4), {
+		super(text, {
 			align: 'center',
 			fontFamily: 'Arial',
 			fontSize: 14,
@@ -44,7 +44,7 @@ export default class Text extends PIXI.Text {
 			.to(
 				this,
 				{
-					duration: 12,
+					duration: 15,
 					pixi: { alpha: 1 }
 				},
 				'show'

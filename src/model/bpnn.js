@@ -1,9 +1,3 @@
-// pake generator function,
-/**
- * foreach epoch
- *    train
- *    yield return weight ama bias baru
- */
 import * as math from 'mathjs';
 
 export default class BPNN {
@@ -14,13 +8,21 @@ export default class BPNN {
 		w,
 		b,
 		learningRate = 1,
-		activation = (val) => 1 / (1 + math.exp(-val))
+		activation = 'sigmoid'
 	) {
 		this.layers = layers;
 		this.inp = inp;
 		this.target = target;
 		this.learningRate = learningRate;
-		this.activation = activation;
+
+		if (activation === 'tanh') {
+			this.activation = (val) => 1 / (1 + math.exp(-val));
+		} else if (activation === 'relu') {
+			this.activation = (val) => (val > 0 ? val : 0);
+		} else {
+			this.activation = (val) =>
+				(math.exp(val) - math.exp(-val)) / (math.exp(val) + math.exp(-val));
+		}
 
 		this._checkInput();
 
@@ -188,12 +190,3 @@ export default class BPNN {
 		}
 	}
 }
-
-// const layers = [ 2, 2, 1 ];
-// const inp = [ [ 1, 1 ] ];
-// const target = [ [ 0 ] ];
-// const w = [ [ [ 5, 4 ], [ 6, 3 ] ], [ [ 4 ], [ 2 ] ] ];
-// const b = [ [ -6, 1 ], [ -3.93 ] ];
-
-// const model = new BPNN(layers, inp, target, w, b);
-// model.train(2);

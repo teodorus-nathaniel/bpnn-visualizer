@@ -24,14 +24,29 @@
 
 <body>
 
+  <div
+    class="slide-container hide"
+    id="slide-container"
+  >
+    <h3>Animation Speed</h3>
+    <input
+      type="range"
+      min="1"
+      max="100"
+      value="9"
+      step="0.5"
+      class="slider"
+      id="animation-slider"
+    >
+  </div>
+
   <span
     class="overlay-icons"
     id="back-btn"
   >&#8592;</span>
-  <span
-    class="overlay-icons"
-    id="reset-btn"
-  >&#8634;</span>
+  <span class="current-epoch">
+    Epoch: <span id="current-epoch">1</span>
+  </span>
 
   <div class="container">
     <h1>Back Propagation Neural Network Visualization</h1>
@@ -74,6 +89,36 @@
             placeholder="layer 3"
             value="1"
           >
+        </div>
+        <div class="flex-row">
+          <label for="learning-rate-input">
+            Learning Rate:
+          </label>
+          <input
+            id="learning-rate-input"
+            type="number"
+            value="1"
+          />
+        </div>
+        <div class="flex-row">
+          <label for="epoch-input">
+            Epoch:
+          </label>
+          <input
+            id="epoch-input"
+            type="number"
+            value="300"
+          />
+        </div>
+        <div class="flex-row">
+          <label for="activation-input">
+            Activation
+          </label>
+          <select id="activation-input">
+            <option value="sigmoid">Sigmoid</option>
+            <option value="tanh">Tanh</option>
+            <option value="relu">Relu</option>
+          </select>
         </div>
         <canvas id="pixi-canvas"></canvas>
       </div>

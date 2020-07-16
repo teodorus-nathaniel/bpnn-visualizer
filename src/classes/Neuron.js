@@ -36,7 +36,12 @@ export default class Neuron extends PIXI.Graphics {
 	}
 
 	showValue(timeline) {
-		new Text(this.value, this.stage, this.pos, timeline);
+		new Text(
+			this.value.toString().substr(0, 4),
+			this.stage,
+			this.pos,
+			timeline
+		);
 	}
 
 	resetValue() {
@@ -50,7 +55,7 @@ export default class Neuron extends PIXI.Graphics {
 
 		let text = null;
 		this.mouseover = function() {
-			text = new Text(this.value, this.stage, this.pos);
+			text = new Text(this.value.toString().substr(0, 4), this.stage, this.pos);
 		};
 
 		this.mouseout = function() {

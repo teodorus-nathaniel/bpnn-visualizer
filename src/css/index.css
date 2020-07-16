@@ -42,7 +42,12 @@ body::-webkit-scrollbar-track {
 	background-color: rgb(50, 50, 50);
 }
 
-input {
+.hide {
+	display: none;
+}
+
+input,
+select {
 	border: none;
 	padding: 5px 7px;
 	border-radius: 5px;
@@ -139,6 +144,10 @@ section > * {
 .layer-input-container .neuron-count-input-container > * {
 	margin-bottom: 10px;
 }
+.layer-input-container .neuron-count-input-container > label {
+	margin-bottom: 0;
+}
+
 .neuron-inputs > * {
 	margin: 10px 20px;
 }
@@ -151,9 +160,11 @@ section > * {
 	border-radius: 20px;
 	transition: width 250ms ease-out;
 	box-shadow: var(--box-shadow-out);
+	margin-top: 20px;
 }
 #pixi-canvas.full-screen {
 	position: fixed;
+	margin-top: 0;
 	top: 0;
 	left: 0;
 	width: 100vw;
@@ -192,31 +203,6 @@ section > * {
 		inset 3px 3px 5px rgba(94, 104, 121, 0.692);
 	outline: none;
 }
-/* #csv-form,
-.input-container {
-	width: 100%;
-	padding: 1% 2%;
-}
-
-header {
-	padding: 1%;
-}
-
-#layer-count-container {
-	width: 100%;
-	padding: 1% 2%;
-}
-
-#start-btn-container {
-}
-
-#open-modal-btn {
-	color: rgb(0, 0, 207);
-	cursor: pointer;
-}
-#open-modal-btn:hover {
-	text-decoration: underline;
-} */
 
 /* INPUT MODAL STYLES */
 .custom-input-modal.hide {
@@ -303,7 +289,8 @@ header {
 	display: flex;
 	align-items: center;
 }
-.data div input {
+.data div input,
+.data div select {
 	margin: 10px 0px;
 	margin-right: 20px;
 }
@@ -319,8 +306,18 @@ header {
 	margin-right: 20px;
 }
 
+.slide-container h3 {
+	margin-bottom: 10px;
+	text-align: center;
+}
+
 .slide-container {
-	width: 100%;
+	position: fixed;
+	bottom: 30px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 99;
+	width: 80%;
 }
 .slider {
 	-webkit-appearance: none;
@@ -331,6 +328,7 @@ header {
 	outline: none;
 	opacity: 0.7;
 	transition: opacity .2s;
+	box-shadow: none;
 }
 
 .slider:hover {
@@ -355,7 +353,7 @@ header {
 
 .overlay-icons {
 	font-size: 2.5em;
-	position: absolute;
+	position: fixed;
 	top: 50px;
 	cursor: pointer;
 	opacity: 0;
@@ -363,7 +361,18 @@ header {
 	transition: transform 250ms ease-out;
 	z-index: 999;
 }
-.overlay-icons.show {
+.current-epoch {
+	font-size: 20px;
+	position: fixed;
+	color: white;
+	z-index: 999;
+	top: 65px;
+	right: 50px;
+	opacity: 0;
+	pointer-events: none;
+}
+.overlay-icons.show,
+.current-epoch.show {
 	pointer-events: all;
 	opacity: 1;
 }
@@ -372,7 +381,4 @@ header {
 }
 #back-btn {
 	left: 50px;
-}
-#reset-btn {
-	right: 50px;
 }

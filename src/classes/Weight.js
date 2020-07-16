@@ -35,6 +35,11 @@ export default class Weight extends PIXI.Graphics {
 		new WeightParticle(this.stage, timeline, this.from, this.to, true);
 	}
 
+	updateValue(value) {
+		this.prevValue = value;
+		this.value = value;
+	}
+
 	initInteractive() {
 		this.interactive = true;
 		this.hitArea = new PIXI.Polygon(
@@ -57,7 +62,7 @@ export default class Weight extends PIXI.Graphics {
 
 		this.mouseover = function() {
 			text = new Text(
-				this.value,
+				this.value.toString().substr(0, 4),
 				this.stage,
 				middle,
 				undefined,
@@ -71,6 +76,29 @@ export default class Weight extends PIXI.Graphics {
 				text.fadeOut();
 			}
 		};
+	}
+
+	showValue(timeline) {
+		const dist = {
+			x: this.to.x - this.from.x,
+			y: this.to.y - this.from.y
+		};
+
+		const middle = {
+			x: this.from.x + dist.x / 4,
+			y: this.from.y + dist.y / 4
+		};
+
+		new Text(
+			`${this.prevValue
+				.toString()
+				.substr(0, 4)} -> ${this.value.toString().substr(0, 4)}`,
+			this.stage,
+			middle,
+			timeline,
+			Math.atan2(dist.y, dist.x),
+			15
+		);
 	}
 
 	renderComponent() {
