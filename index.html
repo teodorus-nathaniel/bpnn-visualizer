@@ -13,6 +13,10 @@
     href="./src/css/index.css"
   />
   <script
+    src="https://cdn.plot.ly/plotly-latest.min.js"
+    defer
+  ></script>
+  <script
     src="./dist/main.js"
     defer
   ></script>
@@ -25,27 +29,57 @@
 <body>
 
   <div
-    class="slide-container hide"
-    id="slide-container"
+    class="loading-modal hide"
+    id="loading-modal"
   >
-    <h3>Animation Speed</h3>
-    <input
-      type="range"
-      min="1"
-      max="100"
-      value="9"
-      step="0.5"
-      class="slider"
-      id="animation-slider"
+    <img
+      src="./assets/loading.svg"
+      alt="loading..."
     >
   </div>
 
+  <div
+    class="slide-container hide"
+    id="slide-container"
+  >
+    <div>
+      <h3>Skip Epoch</h3>
+      <div class="skip">
+        <span id="skip-10">10</span>
+        <span id="skip-100">100</span>
+        <span id="skip-1000">1000</span>
+      </div>
+    </div>
+    <div class="slide">
+      <h3>Animation Speed</h3>
+      <input
+        type="range"
+        min="1"
+        max="100"
+        value="9"
+        step="0.5"
+        class="slider"
+        id="animation-slider"
+      >
+    </div>
+  </div>
   <span
     class="overlay-icons"
     id="back-btn"
   >&#8592;</span>
   <span class="current-epoch">
-    Epoch: <span id="current-epoch">1</span>
+    <div>
+      Epoch: <span id="current-epoch">1</span>
+    </div>
+    <div class="smaller">
+      Data <span id="data-idx"></span> of <span id="data-number"></span>
+    </div>
+    <div>
+      Target: <span id="target"></span>
+    </div>
+    <div>
+      Prediction: <span id="pred"></span>
+    </div>
   </span>
 
   <div class="container">
@@ -161,7 +195,16 @@
         >Edit data</span>
       </div>
     </section>
-    <button id="start-btn">Start training the model!</button>
+    <div
+      id="plot"
+      class="hide"
+    >
+    </div>
+    <div class="actions">
+      <button id="check-model-btn">Auto fix model</button>
+      <button id="visualize-btn">Visualize dataset</button>
+      <button id="start-btn">Start training the model!</button>
+    </div>
   </div>
 
   <div
@@ -294,77 +337,3 @@
 </body>
 
 </html>
-
-
-<!-- <header>
-        <form
-            action="#"
-            method="get"
-            id="csv-form"
-        >
-            <label for="file-input">Input File CSV : </label>
-            <input
-                type="file"
-                name="file"
-                id="file-input"
-            />
-            <button type="submit">Upload</button>
-            <span id="open-modal-btn">use custom input</span>
-            <span class="error-message"></span>
-        </form>
-        <div class="input-container">
-            <label for="layer-count-input">
-                How Many Layers :
-            </label>
-            <input
-                id="layer-count-input"
-                type="text"
-                placeholder="How Many layers..."
-                value="4"
-            />
-        </div>
-
-        <div class="input-container">
-            <label for="text">
-                Neurons :
-            </label>
-            <input
-                class="input-neuron-count"
-                type="text"
-                placeholder="neuron for layer 1..."
-            />
-            <input
-                class="input-neuron-count"
-                type="text"
-                placeholder="neuron for layer 2..."
-            />
-            <input
-                class="input-neuron-count"
-                type="text"
-                placeholder="neuron for layer 3..."
-            />
-            <input
-                class="input-neuron-count"
-                type="text"
-                placeholder="neuron for layer 4..."
-            />
-        </div>
-
-        <div class="input-container">
-            <button id="start-btn">Start!</button>
-        </div>
-    </header> -->
-
-
-<!-- <h2>Animation Speed</h2>
-    <div class="slide-container">
-        <input
-            type="range"
-            min="1"
-            max="100"
-            value="9"
-            step="0.5"
-            class="slider"
-            id="animation-slider"
-        >
-    </div> -->
