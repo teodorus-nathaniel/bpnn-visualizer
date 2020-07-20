@@ -1,4 +1,18 @@
-import * as math from 'mathjs';
+import {
+  exp,
+  random,
+  add,
+  multiply,
+  matrix,
+  reshape,
+  clone,
+  transpose,
+  dotMultiply,
+  subtract,
+  index,
+  mean,
+  divide
+} from 'mathjs';
 
 export default class BPNN {
   constructor (
@@ -17,11 +31,11 @@ export default class BPNN {
 
     if (activation === 'tanh') {
       this.activation = (val) =>
-        (math.exp(val) - math.exp(-val)) / (math.exp(val) + math.exp(-val));
+        (exp(val) - exp(-val)) / (exp(val) + exp(-val));
     } else if (activation === 'relu') {
       this.activation = (val) => (val > 0 ? val : 0);
     } else {
-      this.activation = (val) => 1 / (1 + math.exp(-val));
+      this.activation = (val) => 1 / (1 + exp(-val));
     }
 
     this._checkInput();
@@ -37,8 +51,8 @@ export default class BPNN {
     this.w = [];
     this.b = [];
     for (let i = 0; i < this.layers.length - 1; i++) {
-      this.w.push(math.random([ this.layers[i], this.layers[i + 1] ]));
-      this.b.push(math.random([ this.layers[i + 1] ]));
+      this.w.push(random([ this.layers[i], this.layers[i + 1] ]));
+      this.b.push(random([ this.layers[i + 1] ]));
     }
   }
 
@@ -62,8 +76,8 @@ export default class BPNN {
 
   _forwardPass (x, layer_index) {
     return this.applyToEveryElement(
-      math.add(
-        math.multiply(math.matrix(x), math.matrix(this.w[layer_index])),
+      add(
+        multiply(matrix(x), matrix(this.w[layer_index])),
         this.b[layer_index]
       ),
       this.activation
@@ -72,7 +86,7 @@ export default class BPNN {
 
   _getOutput (x) {
     const data = [];
-    data.push(math.matrix(x));
+    data.push(matrix(x));
     for (let i = 0; i < this.layers.length - 1; i++) {
       data.push(this._forwardPass(data[i], i));
     }
@@ -80,26 +94,20 @@ export default class BPNN {
   }
 
   _getSigma (neurons, sigmaNextLayer, weights) {
-    sigmaNextLayer = math.matrix(sigmaNextLayer);
-    neurons = math.matrix(neurons);
-    if (weights) weights = math.matrix(weights);
+    sigmaNextLayer = matrix(sigmaNextLayer);
+    neurons = matrix(neurons);
+    if (weights) weights = matrix(weights);
     let sigmas = sigmaNextLayer;
 
     if (weights) {
-      sigmas = math.multiply(
-        math.reshape(math.clone(sigmaNextLayer), [
-          1,
-          sigmaNextLayer.size()[0]
-        ]),
-        math.transpose(math.clone(weights))
+      sigmas = multiply(
+        reshape(clone(sigmaNextLayer), [ 1, sigmaNextLayer.size()[0] ]),
+        transpose(clone(weights))
       );
-      sigmas = math.reshape(math.clone(sigmas), [ sigmas.size()[1] ]);
+      sigmas = reshape(clone(sigmas), [ sigmas.size()[1] ]);
     }
 
-    sigmas = math.dotMultiply(
-      math.dotMultiply(sigmas, math.subtract(1, neurons)),
-      neurons
-    );
+    sigmas = dotMultiply(dotMultiply(sigmas, subtract(1, neurons)), neurons);
 
     return sigmas._data;
   }
@@ -126,7 +134,7 @@ export default class BPNN {
             weight +
             this.learningRate *
               sigma[i + 1][j] *
-              neuronValues[i].subset(math.index(k));
+              neuronValues[i].subset(index(k));
         });
       });
     });
@@ -154,18 +162,15 @@ export default class BPNN {
           output: ${neuronValues[neuronValues.length - 1]}
           target: ${target}`);
 
-        const mseError = math.mean(
+        const mseError = mean(
           this.applyToEveryElement(
-            math.subtract(target, neuronValues[neuronValues.length - 1]),
+            subtract(target, neuronValues[neuronValues.length - 1]),
             (val) => 0.5 * Math.pow(val, 2)
           )
         );
         currentError += mseError;
 
-        const error = math.subtract(
-          target,
-          neuronValues[neuronValues.length - 1]
-        );
+        const error = subtract(target, neuronValues[neuronValues.length - 1]);
 
         console.log({ neuronValues, error });
 
@@ -183,9 +188,7 @@ export default class BPNN {
         };
       }
 
-      console.log(
-        `   ERROR: ${math.divide(currentError, this.inp.length)}\n\n`
-      );
+      console.log(`   ERROR: ${divide(currentError, this.inp.length)}\n\n`);
       errors.push(currentError / this.inp.length);
       i++;
     }

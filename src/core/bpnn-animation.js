@@ -1,11 +1,6 @@
-import {
-  getNextDimension,
-  getDataExceptColumn,
-  forEachElement
-} from '../utilities/array-utilities';
-import gsap from 'gsap';
+import { getNextDimension, forEachElement } from '../utilities/array-utilities';
 import BPNN from '../model/bpnn';
-import * as math from 'mathjs';
+import { zeros, size } from 'mathjs';
 
 let timeline;
 let animationSpeed = 19;
@@ -75,7 +70,6 @@ function updateNeuronOutputValues (neurons, neuronValues, target){
     timeline = new gsap.timeline({ onComplete: resolve });
     gsap.to(timeline, { timeScale: animationSpeed });
 
-    console.log(neuronValues.size()[0]);
     let max = 0;
     for (let i = 1; i < neuronValues.size()[0]; i++) {
       if (neuronValues._data[i] > neuronValues._data[max]) {
@@ -103,7 +97,7 @@ function updateNeuronOutputValues (neurons, neuronValues, target){
     predLabel.classList.remove('true', 'false');
 
     if (encoder.get_uniques_size() > 2) {
-      const prediction = math.zeros(math.size(target));
+      const prediction = zeros(size(target));
       prediction[max] = 1;
       const labelPred = encoder.inverse_transform(prediction);
       predLabel.textContent = labelPred;

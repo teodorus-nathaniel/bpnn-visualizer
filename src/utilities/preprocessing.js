@@ -1,10 +1,10 @@
-import * as math from 'mathjs';
+import { min, max, zeros } from 'mathjs';
 
 function minData (arr){
-  return math.min(arr, 0);
+  return min(arr, 0);
 }
 function maxData (arr){
-  return math.max(arr, 0);
+  return max(arr, 0);
 }
 function minmaxScaler (number, min, max){
   return (number - min) / (max - min);
@@ -41,7 +41,7 @@ export function oneHotEncode (target){
         return target.map((val) => [ mapper[val].key - 1 ]);
       }
 
-      let newTarget = math.zeros([ target.length, uniques.size ]);
+      let newTarget = zeros([ target.length, uniques.size ]);
       target.forEach((val, idx) => (newTarget[idx][mapper[val].key - 1] = 1));
 
       return newTarget;
