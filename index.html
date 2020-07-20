@@ -5,43 +5,35 @@
   <meta charset="UTF-8" />
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+    content="width=device-width, initial-scale=1.0" />
   <title>BPNN Visualizer</title>
   <link
     rel="stylesheet"
-    href="./src/css/index.css"
-  />
+    href="./src/css/index.css" />
   <script
     src="https://cdn.plot.ly/plotly-latest.min.js"
-    defer
-  ></script>
+    defer></script>
   <script
     src="./dist/main.js"
-    defer
-  ></script>
+    defer></script>
   <link
     href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-    rel="stylesheet"
-  >
+    rel="stylesheet">
 </head>
 
 <body>
 
   <div
     class="loading-modal hide"
-    id="loading-modal"
-  >
+    id="loading-modal">
     <img
       src="./assets/loading.svg"
-      alt="loading..."
-    >
+      alt="loading...">
   </div>
 
   <div
     class="slide-container hide"
-    id="slide-container"
-  >
+    id="slide-container">
     <div>
       <h3>Skip Epoch</h3>
       <div class="skip">
@@ -55,18 +47,16 @@
       <input
         type="range"
         min="1"
-        max="100"
+        max="500"
         value="9"
         step="0.5"
         class="slider"
-        id="animation-slider"
-      >
+        id="animation-slider">
     </div>
   </div>
   <span
     class="overlay-icons"
-    id="back-btn"
-  >&#8592;</span>
+    id="back-btn">&#8592;</span>
   <span class="current-epoch">
     <div>
       Epoch: <span id="current-epoch">1</span>
@@ -79,6 +69,12 @@
     </div>
     <div>
       Prediction: <span id="pred"></span>
+    </div>
+    <div class="current-error">
+      Current Error: <span id="curr-error"></span>
+    </div>
+    <div class="prev-error">
+      Prev Error: <span id="prev-error"></span>
     </div>
   </span>
 
@@ -96,33 +92,28 @@
           id="layer-count-input"
           type="text"
           placeholder="between 2 to 5"
-          value="3"
-        />
+          value="3" />
       </div>
       <div class="flex-column neuron-count-input-container">
         <label>Number of neurons per layer: </label>
         <div
           class="flex-row neuron-inputs"
-          id="neuron-inputs"
-        >
+          id="neuron-inputs">
           <input
             type="text"
             class="input-neuron-count"
             placeholder="layer 1"
-            value="2"
-          >
+            value="2">
           <input
             type="text"
             class="input-neuron-count"
             placeholder="layer 2"
-            value="2"
-          >
+            value="2">
           <input
             type="text"
             class="input-neuron-count"
             placeholder="layer 3"
-            value="1"
-          >
+            value="1">
         </div>
         <div class="flex-row">
           <label for="learning-rate-input">
@@ -131,8 +122,7 @@
           <input
             id="learning-rate-input"
             type="number"
-            value="1"
-          />
+            value="1" />
         </div>
         <div class="flex-row">
           <label for="epoch-input">
@@ -141,8 +131,7 @@
           <input
             id="epoch-input"
             type="number"
-            value="300"
-          />
+            value="300" />
         </div>
         <div class="flex-row">
           <label for="activation-input">
@@ -159,29 +148,25 @@
     </section>
     <section
       class="input-form-container use-custom"
-      id="input-form-container"
-    >
+      id="input-form-container">
       <h2>Set the input</h2>
       <div class="input-form csv-input-form">
         <div class="flex-row-space-between">
           <span class="title">Use CSV file</span>
           <span
             class="link change-input-type-btn open-modal-btn"
-            tabindex="0"
-          >use custom input</span>
+            tabindex="0">use custom input</span>
         </div>
         <input
           type="file"
-          id="csv-file"
-        >
+          id="csv-file">
       </div>
       <div class="input-form custom-input-form">
         <div class="flex-row-space-between">
           <span class="title">Use custom input (Default: XOR Dataset)</span>
           <span
             class="link change-input-type-btn"
-            tabindex="0"
-          >use csv file</span>
+            tabindex="0">use csv file</span>
         </div>
         <div>
           <span>
@@ -191,14 +176,12 @@
         </div>
         <span
           class="link open-modal-btn"
-          tabindex="0"
-        >Edit data</span>
+          tabindex="0">Edit data</span>
       </div>
     </section>
     <div
       id="plot"
-      class="hide"
-    >
+      class="hide">
     </div>
     <div class="actions">
       <button id="check-model-btn">Auto fix model</button>
@@ -209,18 +192,15 @@
 
   <div
     class="custom-input-modal hide"
-    id="custom-input-modal"
-  >
+    id="custom-input-modal">
     <div class="modal-container">
       <span
         class="close-btn"
-        id="close-modal-btn"
-      >&#9932;</span>
+        id="close-modal-btn">&#9932;</span>
       <h1>Your input dataset</h1>
       <div
         class="features-titles"
-        id="features-titles"
-      >
+        id="features-titles">
         <span class="title">
           <span contenteditable="true">Feature 1</span>
           <span class="delete-icon pointer">&#9932;</span>
@@ -232,105 +212,86 @@
         <span
           class="link"
           id="add-new-feature"
-          tabindex="0"
-        >+ add new feature</span>
+          tabindex="0">+ add new feature</span>
         <span contenteditable="true">Target</span>
       </div>
 
       <div
         class="data"
-        id="data"
-      >
+        id="data">
         <div>
           <input
             type="text"
             placeholder="input data..."
-            value='1'
-          >
+            value='1'>
           <input
             type="text"
             placeholder="input data..."
-            value='1'
-          >
+            value='1'>
           <input
             type="text"
             placeholder="input data..."
-            value='0'
-          >
+            value='0'>
           <span
             class="delete-row-btn"
-            data-index="1"
-          >&#9932;</span>
+            data-index="1">&#9932;</span>
         </div>
         <div>
           <input
             type="text"
             placeholder="input data..."
-            value='1'
-          >
+            value='1'>
           <input
             type="text"
             placeholder="input data..."
-            value='0'
-          >
+            value='0'>
           <input
             type="text"
             placeholder="input data..."
-            value='1'
-          >
+            value='1'>
           <span
             class="delete-row-btn"
-            data-index="2"
-          >&#9932;</span>
+            data-index="2">&#9932;</span>
         </div>
         <div>
           <input
             type="text"
             placeholder="input data..."
-            value='0'
-          >
+            value='0'>
           <input
             type="text"
             placeholder="input data..."
-            value='1'
-          >
+            value='1'>
           <input
             type="text"
             placeholder="input data..."
-            value='1'
-          >
+            value='1'>
           <span
             class="delete-row-btn"
-            data-index="3"
-          >&#9932;</span>
+            data-index="3">&#9932;</span>
         </div>
         <div>
           <input
             type="text"
             placeholder="input data..."
-            value='0'
-          >
+            value='0'>
           <input
             type="text"
             placeholder="input data..."
-            value='0'
-          >
+            value='0'>
           <input
             type="text"
             placeholder="input data..."
-            value='0'
-          >
+            value='0'>
           <span
             class="delete-row-btn"
-            data-index="3"
-          >&#9932;</span>
+            data-index="3">&#9932;</span>
         </div>
       </div>
       <span
         class="link"
         id="add-new-data"
-        tabindex="0"
-      >+ add new data</span>
+        tabindex="0">+ add new data</span>
 
     </div>
   </div>

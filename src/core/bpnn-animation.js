@@ -19,6 +19,8 @@ const currentEpochLabel = document.getElementById('current-epoch');
 const dataIdxLabel = document.getElementById('data-idx');
 const dataMaxLabel = document.getElementById('data-number');
 const loadingModal = document.getElementById('loading-modal');
+const currentErrorLabel = document.getElementById('curr-error');
+const previousErrorLabel = document.getElementById('prev-error');
 
 function forwardPass (weights){
   return new Promise((resolve) => {
@@ -73,9 +75,10 @@ function updateNeuronOutputValues (neurons, neuronValues, target){
     timeline = new gsap.timeline({ onComplete: resolve });
     gsap.to(timeline, { timeScale: animationSpeed });
 
+    console.log(neuronValues.size()[0]);
     let max = 0;
-    for (let i = 1; i < neuronValues.length; i++) {
-      if (neuronValues[i] > neuronValues[max]) {
+    for (let i = 1; i < neuronValues.size()[0]; i++) {
+      if (neuronValues._data[i] > neuronValues._data[max]) {
         max = i;
       }
     }
@@ -138,6 +141,15 @@ function updateWeightValues (weights, newWeights){
   });
 }
 
+function updateWeightValuesNoAnim (weights, newWeights){
+  weights.forEach((weight, i) => {
+    weight.forEach((w, j) => {
+      w.updateValue(newWeights[i][j]);
+      w.renderComponent();
+    });
+  });
+}
+
 export function animationSpeedListener (){
   animationSpeed = this.value;
   if (timeline) {
@@ -157,6 +169,13 @@ export function stopAnimation (){
 
 export function startAnimation (){
   endAnimation = false;
+}
+
+async function doLoading (network, newWeights, numLayers){
+  checkStillLoading();
+  for (let j = numLayers - 2; j >= 0; j--) {
+    await updateWeightValuesNoAnim(network.weights[j], newWeights[j]);
+  }
 }
 
 export default async function startBPNN (network, input, target, encoderParam){
@@ -183,6 +202,7 @@ export default async function startBPNN (network, input, target, encoderParam){
 
   let currentEpoch = 0;
   let res;
+  let currentError = 0;
   do {
     if (endAnimation) {
       break;
@@ -206,6 +226,15 @@ export default async function startBPNN (network, input, target, encoderParam){
       dataMax
     } = res.value;
 
+    if (currentEpoch !== epochFromModel) {
+      previousErrorLabel.textContent = (currentError / dataMax)
+        .toString()
+        .slice(0, 15);
+      currentErrorLabel.textContent = 0;
+      currentError = 0;
+    }
+
+    currentError += error;
     lastWeight = newWeights;
 
     currentEpoch = epochFromModel;
@@ -214,7 +243,7 @@ export default async function startBPNN (network, input, target, encoderParam){
     dataMaxLabel.textContent = dataMax;
 
     if (skipAnimation !== 0) {
-      checkStillLoading();
+      await doLoading(network, newWeights, numLayers);
       continue;
     }
 
@@ -235,7 +264,7 @@ export default async function startBPNN (network, input, target, encoderParam){
     });
 
     if (skipAnimation !== 0) {
-      checkStillLoading();
+      await doLoading(network, newWeights, numLayers);
       continue;
     }
     if (endAnimation) {
@@ -255,8 +284,12 @@ export default async function startBPNN (network, input, target, encoderParam){
       }
     }
 
+    currentErrorLabel.textContent = (currentError / dataIndex)
+      .toString()
+      .slice(0, 15);
+
     if (skipAnimation !== 0) {
-      checkStillLoading();
+      await doLoading(network, newWeights, numLayers);
       continue;
     }
     if (endAnimation) {

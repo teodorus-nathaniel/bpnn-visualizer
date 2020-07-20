@@ -409,12 +409,19 @@ section > * {
   position: fixed;
   color: white;
   z-index: 999;
-  top: 30px;
+  box-shadow: var(--box-shadow-inset);
+  padding: 15px 20px;
+  border-radius: 5px;
+  top: 15px;
   right: 50px;
   opacity: 0;
   pointer-events: none;
   font-size: 16px;
-  width: 160px;
+  width: 200px;
+}
+#prev-error,
+#curr-error {
+  display: block;
 }
 .current-epoch span {
   font-weight: bold;
@@ -422,6 +429,14 @@ section > * {
 .current-epoch .smaller {
   font-size: 12px;
   margin-bottom: 10px;
+}
+
+.current-error {
+  margin-top: 10px;
+}
+
+.prev-error {
+  font-size: 12px;
 }
 
 #pred.true {

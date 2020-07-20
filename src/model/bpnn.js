@@ -119,8 +119,6 @@ export default class BPNN {
       );
     }
 
-    console.log(sigma);
-
     this.w.forEach((weightsPerLayer, i) => {
       weightsPerLayer.forEach((weights, k) => {
         weights.forEach((weight, j) => {
@@ -146,6 +144,7 @@ export default class BPNN {
     let i = 0;
     while (true) {
       console.log(`EPOCH ${i + 1}: `);
+      let currentError = 0;
       for (let j = 0; j < this.inp.length; j++) {
         const trainData = this.inp[j];
         const target = this.target[j];
@@ -155,10 +154,13 @@ export default class BPNN {
           output: ${neuronValues[neuronValues.length - 1]}
           target: ${target}`);
 
-        const mseError = this.applyToEveryElement(
-          math.subtract(target, neuronValues[neuronValues.length - 1]),
-          (val) => 0.5 * Math.pow(val, 2)
+        const mseError = math.mean(
+          this.applyToEveryElement(
+            math.subtract(target, neuronValues[neuronValues.length - 1]),
+            (val) => 0.5 * Math.pow(val, 2)
+          )
         );
+        currentError += mseError;
 
         const error = math.subtract(
           target,
@@ -168,9 +170,6 @@ export default class BPNN {
         console.log({ neuronValues, error });
 
         this._updateModel(neuronValues, error);
-
-        console.log(`   ERROR: ${math.divide(mseError, this.inp.length)}\n\n`);
-        errors.push(mseError / this.inp.length);
 
         yield {
           neuronValues,
@@ -183,6 +182,11 @@ export default class BPNN {
           dataMax: this.inp.length
         };
       }
+
+      console.log(
+        `   ERROR: ${math.divide(currentError, this.inp.length)}\n\n`
+      );
+      errors.push(currentError / this.inp.length);
       i++;
     }
   }
