@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "mathjs": "^6.6.1",
-    "papaparse": "^5.1.1",
+    "papaparse": "^5.2.0",
     "pixi.js": "^5.2.1"
   },
   "devDependencies": {
