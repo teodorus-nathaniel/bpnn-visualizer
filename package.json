@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --watch",
+    "start": "webpack --mode=\"production\" && http-server .",
+    "dev": "webpack --watch",
     "build": "webpack --mode=production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "http-server": "^0.12.3",
     "mathjs": "^6.6.1",
     "papaparse": "^5.1.1",
     "pixi.js": "^5.2.1"
